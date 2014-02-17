@@ -128,6 +128,10 @@ INCLUDE(InstallRequiredSystemLibraries)
 
 
 IF(WIN32 AND NOT UNIX)
+
+    file(WRITE "${PROJECT_BINARY_DIR}/qt.conf"
+        "[Paths]\nPlugins=./plugins\n")
+
     set(CPACK_GENERATOR NSIS)
     SET(CPACK_NSIS_MODIFY_PATH OFF) # add to PATH variable
 
@@ -154,13 +158,18 @@ IF(WIN32 AND NOT UNIX)
              ${QT_BIN_PATH}/Qt5Widgets.dll
              ${QT_BIN_PATH}/libGLESv2.dll
              ${QT_BIN_PATH}/libEGL.dll
+             ${PROJECT_BINARY_DIR}/qt.conf
         DESTINATION bin
         COMPONENT applications)
-
 
     install(
         FILES
             ${QT_BIN_PATH}/../plugins/iconengines/qsvgicon.dll
+        DESTINATION bin/plugins/iconengines
+        COMPONENT applications)
+
+    install(
+        FILES
             ${QT_BIN_PATH}/../plugins/imageformats/qgif.dll
             ${QT_BIN_PATH}/../plugins/imageformats/qico.dll
             ${QT_BIN_PATH}/../plugins/imageformats/qjpeg.dll
@@ -169,12 +178,28 @@ IF(WIN32 AND NOT UNIX)
             ${QT_BIN_PATH}/../plugins/imageformats/qtga.dll
             ${QT_BIN_PATH}/../plugins/imageformats/qtiff.dll
             ${QT_BIN_PATH}/../plugins/imageformats/qwbmp.dll
+        DESTINATION bin/plugins/imageformats
+        COMPONENT applications)
+
+    install(
+        FILES
             ${QT_BIN_PATH}/../plugins/mediaservice/dsengine.dll
+        DESTINATION bin/plugins/mediaservice
+        COMPONENT applications)
+
+    install(
+        FILES
             ${QT_BIN_PATH}/../plugins/platforms/qminimal.dll
             ${QT_BIN_PATH}/../plugins/platforms/qoffscreen.dll
             ${QT_BIN_PATH}/../plugins/platforms/qwindows.dll
+        DESTINATION bin/plugins/platforms
+        COMPONENT applications)
+
+
+    install(
+        FILES
             ${QT_BIN_PATH}/../plugins/printsupport/windowsprintersupport.dll
-        DESTINATION plugins
+        DESTINATION bin/plugins/printsupport
         COMPONENT applications)
 
 
