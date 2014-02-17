@@ -39,7 +39,7 @@ class	ImplInterf;
 /**
 *	@brief	Manages the interfaces
 */
-class ImplManager				{
+class DE_EXPORT ImplManager				{
 
 	//
 	//

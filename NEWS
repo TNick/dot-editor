@@ -1,6 +1,9 @@
-2012 03 01
-	Project was created
+2014 02 17 - version 1.1.1
+	At least on some machine the windows installer produced unusable installations.
+	Settings were not saved
 2014 02 17 - version 1.1.0
 	The project now uses cmake build system;
 	Binaries are hosted at http://tnick.github.com/dot-editor
 	Source is now hosted at https://github.com/TNick/dot-editor
+2012 03 01
+	Project was created

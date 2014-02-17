@@ -114,6 +114,7 @@ configure_file (
 # ----------------------------------------------------------------------------
 add_subdirectory( "library" )
 add_subdirectory( "editor" )
+add_subdirectory( "plugins" )
 # ============================================================================
 
 # ----------------------------------------------------------------------------
@@ -213,10 +214,10 @@ IF(WIN32 AND NOT UNIX)
 #        ExecWait '$INSTDIR\\\\tmp\\\\graphviz-2.36.msi'
 #        ")
 
-    list(APPEND CPACK_COMPONENT_APPLICATIONS_EXTRA_INSTALL_COMMANDS "
+    list(APPEND CPACK_COMPONENT_EXTRA_INSTALL_COMMANDS "
         ExecWait 'msiexec /i $INSTDIR\\\\tmp\\\\graphviz-2.36.msi'
         ")
-    list(APPEND CPACK_COMPONENT_APPLICATIONS_EXTRA_UNINSTALL_COMMANDS "
+    list(APPEND CPACK_COMPONENT_EXTRA_UNINSTALL_COMMANDS "
         ExecWait 'msiexec /u $INSTDIR\\\\tmp\\\\graphviz-2.36.msi'
         ")
 

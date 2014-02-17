@@ -552,6 +552,7 @@ void				ImplProg::setSettings			( ImplProg::Stg & stg )
 	else
 	{
 		uniq_->s_ = stg;
+        stg.save();
 		uniq_->applySettings();
 	}
 
