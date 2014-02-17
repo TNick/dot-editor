@@ -1,0 +1,272 @@
+graph
+	digraph\t\tgraph_name\t{\n\t\n}\n
+	graph\t\tgraph_name\t{\n\t\n}\n
+	rankdir = LR
+	rankdir = TB
+	subgraph sg_name\t{\n\t\n}\n
+	subgraph cluster_name\t{\n\t\n}\n
+	bgcolor = transparent
+	node\t[\n\t\t\n\t]\n
+	edge\t[\n\t\t\n\t]\n
+	a -> b
+
+
+node
+	node\t[\n\t\t\n\t]\n
+	label =
+	shape =
+	shape = record, label = { a b | c }
+	color =
+	fillcolor =
+	fillcolor = "#FCE975"
+	style = filled
+	style = rounded
+	style = "rounded, filled"
+	penwidth =
+	fontsize =
+	fontname = "Verdana"
+	nodesep =
+	ranksep =
+	{rank=same a b}
+
+row graphs
+	digraph\t\tgraph_name\t{\n\ta[shape="none", label=<\n\t<table \n\t\tcellpadding="0" \n\t\tcellborder="0" \n\t\tcellspacing="0" \n\t\tborder="0">\n\t\t<tr>\n\t\t\t<td bgcolor="orange">abc</td>\n\t\t\t<td bgcolor="yellow">def</td>\n\t\t</tr>\n\t</table>\n\t>]\n}\n
+
+
+edge
+	edge\t[\n\t\t\n\t]\n
+	label =
+	penwidth =
+	weight =
+	color =
+	dir = none
+	arrowsize =
+	arrowhead =
+	arrowtail =
+	headlabel =
+	taillabel =
+	style = dashed
+	fontsize =
+	fontname = "Verdana"
+	fontcolor =
+	len =
+
+
+box shapes
+	box
+	box3d
+	circle
+	component
+	diamond
+	doublecircle
+	doubleoctagon
+	egg
+	ellipse
+	folder
+	hexagon
+	house
+	invhouse
+	invtrapezium
+	invtriangle
+	Mcircle
+	Mdiamond
+	Msquare
+	none
+	note
+	octagon
+	oval
+	parallelogram
+	pentagon
+	plaintext
+	point
+	polygon
+	rect
+	record
+	rectangle
+	septagon
+	square
+	tab
+	trapezium
+	triangle
+	tripleoctagon
+
+
+arrow heads
+	box
+	crow
+	diamond
+	dot
+	inv
+	none
+	normal
+	tee
+	vee
+
+
+
+
+
+various
+	area
+	arrowhead
+	arrowsize
+	arrowtail
+	aspect
+	bb
+	bgcolor
+	center
+	charset
+	clusterrank
+	color
+	colorscheme
+	comment
+	compound
+	concentrate
+	constraint
+	Damping
+	decorate
+	defaultdist
+	dim
+	dimen
+	dir
+	diredgeconstraints
+	distortion
+	dpi
+	edgehref
+	edgetarget
+	edgetooltip
+	edgeURL
+	epsilon
+	esep
+	fillcolor
+	fixedsize
+	fontcolor
+	fontname
+	fontnames
+	fontpath
+	fontsize
+	forcelabels
+	gradientangle
+	group
+	headclip
+	headhref
+	headlabel
+	headport
+	headtarget
+	headtooltip
+	headURL
+	height
+	href
+	id
+	image
+	imagepath
+	imagescale
+	K
+	label
+	labelangle
+	labeldistance
+	labelfloat
+	labelfontcolor
+	labelfontname
+	labelfontsize
+	labelhref
+	labeljust
+	labelloc
+	label_scheme
+	labeltarget
+	labeltooltip
+	labelURL
+	landscape
+	layer
+	layerlistsep
+	layers
+	layerselect
+	layersep
+	layout
+	len
+	levels
+	levelsgap
+	lhead
+	lheight
+	lp
+	ltail
+	lwidth
+	margin
+	maxiter
+	mclimit
+	mindist
+	minlen
+	mode
+	model
+	mosek
+	nodesep
+	nojustify
+	normalize
+	nslimit
+	nslimit1
+	ordering
+	orientation
+	orientation
+	outputorder
+	overlap
+	overlap_scaling
+	pack
+	packmode
+	pad
+	page
+	pagedir
+	pencolor
+	penwidth
+	peripheries
+	pin
+	pos
+	quadtree
+	quantum
+	rank
+	rankdir
+	ranksep
+	ratio
+	rects
+	regular
+	remincross
+	repulsiveforce
+	resolution
+	root
+	rotate
+	rotation
+	samehead
+	sametail
+	samplepoints
+	scale
+	searchsize
+	sep
+	shape
+	shapefile
+	showboxes
+	sides
+	size
+	skew
+	smoothing
+	sortv
+	splines
+	start
+	style
+	stylesheet
+	tailclip
+	tailhref
+	taillabel
+	tailport
+	tailtarget
+	tailtooltip
+	tailURL
+	target
+	tooltip
+	truecolor
+	URL
+	vertices
+	viewport
+	voro_margin
+	weight
+	width
+	xlabel
+	z

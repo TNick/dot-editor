@@ -1,0 +1,20 @@
+Use cmake to generate files for your platform.
+Under unices, something like:
+
+    mkdir ~/dot-editor
+	cd ~/dot-editor
+	# extract in src, use git to checkout in src, ...
+	mkdir build
+	cd build
+	cmake ../src
+	make
+	make install
+	
+Under windows, once can try something like:
+
+	call "C:\Qt\5.2.0\mingw48_32\bin\qtenv2.bat"
+	H:
+	cmake -G "MinGW Makefiles" ../src -DCMAKE_INSTALL_PREFIX:PATH=C:/pf/dot-editor -DCMAKE_BUILD_TYPE=Release
+	mingw32-make.exe
+	mingw32-make.exe install
+	

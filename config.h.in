@@ -1,0 +1,97 @@
+/* ========================================================================= */
+/* ------------------------------------------------------------------------- */
+/*!
+  \file			config.h
+  \date			February 2014
+  \author		TNick
+
+*//*
+
+
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ Please read COPYING and README files in root folder
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+/* ------------------------------------------------------------------------- */
+/* ========================================================================= */
+#ifndef DOTEDITOR_config_h_INCLUDE
+#define DOTEDITOR_config_h_INCLUDE
+//
+//
+//
+//
+/*  INCLUDES    ------------------------------------------------------------ */
+
+#include    <QApplication>
+
+/*  INCLUDES    ============================================================ */
+//
+//
+//
+//
+/*  DEFINITIONS    --------------------------------------------------------- */
+
+//! the name of this project
+#define DOTEDITOR_PROJECT_NAME   "dot-editor"
+
+//! major version (ABI not preserved between these)
+#define DOTEDITOR_MAJOR_VERSION      @DOTEDITOR_MAJOR_VERSION@
+
+//! minor version; ABI is preserved
+#define DOTEDITOR_MINOR_VERSION      @DOTEDITOR_MINOR_VERSION@
+
+//! bug fixes
+#define DOTEDITOR_PATCH_VERSION      @DOTEDITOR_PATCH_VERSION@
+
+//! the version ans a 32-bit integer
+#define DOTEDITOR_VERSION            \
+    DOTEDITOR_MAJOR_VERSION * 0x100000 + \
+    DOTEDITOR_MINOR_VERSION * 0x1000 + \
+    DOTEDITOR_PATCH_VERSION * 0x1
+
+//! version as a string
+#define DOTEDITOR_VERSION_S          "@DOTEDITOR_VERSION@"
+
+//! when it was build (UTC)
+#define DOTEDITOR_BUILD_TIME         "@DOTEDITOR_BUILD_TIME@"
+
+//! components on target system
+/// @{
+
+/// @}
+
+// set if this is a debug build
+#cmakedefine DOTEDITOR_DEBUG
+
+// set if we're building for win32 targets
+#cmakedefine DOTEDITOR_WIN32
+
+// Take the export or inport form depending on who's asking
+#if defined(DOTEDITOR_SHARED)
+#	define		DE_EXPORT		Q_DECL_EXPORT
+#else
+#	define		DE_EXPORT		Q_DECL_IMPORT
+#endif
+
+/*  DEFINITIONS    ========================================================= */
+//
+//
+//
+//
+/*  DATA    ---------------------------------------------------------------- */
+
+/*  DATA    ================================================================ */
+//
+//
+//
+//
+/*  FUNCTIONS    ----------------------------------------------------------- */
+
+/*  FUNCTIONS    =========================================================== */
+//
+//
+//
+//
+/* ------------------------------------------------------------------------- */
+/* ========================================================================= */
+#endif /* DOTEDITOR_config_h_INCLUDE */

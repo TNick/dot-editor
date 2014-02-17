@@ -1,0 +1,35 @@
+Source Code
+===========
+
+To get the latest source code use git:
+
+	git clone https://github.com/TNick/dot-editor.git dot-editor
+
+
+Building
+========
+See INSTALL file for details.
+
+Distributions
+=============
+
+Distributions are hosted at http://tnick.github.com/dot-editor and
+follow this pattern:
+	distrib
+		1.1.0
+			windows
+				dot-editor-1.1.0-win32.exe
+			ubuntu
+				tbd
+			source
+				dot-editor-1.1.0-src.zip
+
+See the NEWS file for changes between versions.
+
+Getting involved
+===========================
+Help is much appreciated. If you are interested in this project and 
+you think you may contribute ideas, source code, patches, artwork or 
+anything else, really, please send me an e-mail at
+nicu.tofan@gmail.com
+
