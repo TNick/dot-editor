@@ -32,7 +32,7 @@ endif (CMAKE_BUILD_TYPE STREQUAL "")
 # the version as known to CMake
 set ( DOTEDITOR_MAJOR_VERSION 1)
 set ( DOTEDITOR_MINOR_VERSION 1)
-set ( DOTEDITOR_PATCH_VERSION 0)
+set ( DOTEDITOR_PATCH_VERSION 1)
 set ( DOTEDITOR_VERSION
   "${DOTEDITOR_MAJOR_VERSION}.${DOTEDITOR_MINOR_VERSION}.${DOTEDITOR_PATCH_VERSION}")
 
@@ -152,8 +152,31 @@ IF(WIN32 AND NOT UNIX)
              ${QT_BIN_PATH}/Qt5Core.dll
              ${QT_BIN_PATH}/Qt5Gui.dll
              ${QT_BIN_PATH}/Qt5Widgets.dll
+             ${QT_BIN_PATH}/libGLESv2.dll
+             ${QT_BIN_PATH}/libEGL.dll
         DESTINATION bin
         COMPONENT applications)
+
+
+    install(
+        FILES
+            ${QT_BIN_PATH}/../plugins/iconengines/qsvgicon.dll
+            ${QT_BIN_PATH}/../plugins/imageformats/qgif.dll
+            ${QT_BIN_PATH}/../plugins/imageformats/qico.dll
+            ${QT_BIN_PATH}/../plugins/imageformats/qjpeg.dll
+            ${QT_BIN_PATH}/../plugins/imageformats/qmng.dll
+            ${QT_BIN_PATH}/../plugins/imageformats/qsvg.dll
+            ${QT_BIN_PATH}/../plugins/imageformats/qtga.dll
+            ${QT_BIN_PATH}/../plugins/imageformats/qtiff.dll
+            ${QT_BIN_PATH}/../plugins/imageformats/qwbmp.dll
+            ${QT_BIN_PATH}/../plugins/mediaservice/dsengine.dll
+            ${QT_BIN_PATH}/../plugins/platforms/qminimal.dll
+            ${QT_BIN_PATH}/../plugins/platforms/qoffscreen.dll
+            ${QT_BIN_PATH}/../plugins/platforms/qwindows.dll
+            ${QT_BIN_PATH}/../plugins/printsupport/windowsprintersupport.dll
+        DESTINATION plugins
+        COMPONENT applications)
+
 
     install(
         FILES
