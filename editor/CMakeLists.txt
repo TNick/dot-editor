@@ -43,6 +43,5 @@ qt5_use_modules(${LOC_PRJ_NAME} Core Widgets)
 
 install(
     TARGETS ${LOC_PRJ_NAME}
-    RUNTIME
-    DESTINATION bin
+    RUNTIME DESTINATION bin
     COMPONENT applications)

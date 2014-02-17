@@ -50,7 +50,7 @@ target_link_libraries( ${LOC_PRJ_NAME}
 	dot-editor
 )
 
-qt5_use_modules(${LOC_PRJ_NAME} Core)
+qt5_use_modules(${LOC_PRJ_NAME} Core Widgets)
 
 if (INCLUDE_OUTPUT_PATH)
     FOREACH (hfile ${LIB_HEADERS})
@@ -64,15 +64,13 @@ endif (INCLUDE_OUTPUT_PATH)
 
 install(
     TARGETS ${LOC_PRJ_NAME}
-    ARCHIVE
-    DESTINATION lib
+    ARCHIVE DESTINATION plugins
+    LIBRARY DESTINATION plugins
+    RUNTIME DESTINATION plugins
     COMPONENT plugins)
-install(
-    TARGETS ${LOC_PRJ_NAME}
-    RUNTIME
-    DESTINATION bin
-    COMPONENT plugins)
+
 install(
     FILES ${LIB_HEADERS}
     DESTINATION include/plugins/automata
-    COMPONENT headers)
+    COMPONENT plugins)
+

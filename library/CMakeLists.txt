@@ -119,15 +119,8 @@ endif (INCLUDE_OUTPUT_PATH)
 
 install(
     TARGETS ${LOC_PRJ_NAME}
-    ARCHIVE
-    DESTINATION lib
+    ARCHIVE DESTINATION lib
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
     COMPONENT applications)
-install(
-    TARGETS ${LOC_PRJ_NAME}
-    RUNTIME
-    DESTINATION bin
-    COMPONENT libraries)
-install(
-    FILES ${LIB_HEADERS}
-    DESTINATION include
-    COMPONENT headers)
+

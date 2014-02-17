@@ -32,7 +32,7 @@ endif (CMAKE_BUILD_TYPE STREQUAL "")
 # the version as known to CMake
 set ( DOTEDITOR_MAJOR_VERSION 1)
 set ( DOTEDITOR_MINOR_VERSION 1)
-set ( DOTEDITOR_PATCH_VERSION 1)
+set ( DOTEDITOR_PATCH_VERSION 2)
 set ( DOTEDITOR_VERSION
   "${DOTEDITOR_MAJOR_VERSION}.${DOTEDITOR_MINOR_VERSION}.${DOTEDITOR_PATCH_VERSION}")
 
@@ -259,3 +259,4 @@ set(CPACK_COMPONENT_GROUP_RUNTIME_DESCRIPTION
 INCLUDE(CPack)
 # ============================================================================
 
+message (${CMAKE_SYSTEM})
