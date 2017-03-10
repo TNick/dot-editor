@@ -32,6 +32,10 @@
 #include    <QDesktopServices>
 #include    <QApplication>
 
+#ifdef TARGET_SYSTEM_WIN32
+#include <windows.h>
+#endif
+
 /*  INCLUDES    ============================================================ */
 //
 //
@@ -100,8 +104,16 @@ bool		parseArgs			(
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-int			main				( int argc, char *argv[] )
+#if defined(DOTEDITOR_WIN32)
+int WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, char*, int nShowCmd)
 {
+    int argc = __argc;
+    char **argv = __argv;
+#else
+int   main    ( int argc, char *argv[] )
+{
+#endif
+
     int ret_val = 0;
 
     try
