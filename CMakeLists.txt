@@ -52,12 +52,12 @@ if (WIN32)
   set( DOTEDITOR_WIN32 ON )
 else (WIN32)
   # set stuff for other systems
-  
+
 endif (WIN32)
 
 # configure compiler
 if ( CMAKE_BUILD_TOOL MATCHES "(msdev|devenv|nmake)" )
-    add_definitions(/W4)
+    #add_definitions(/W4)
 else ( CMAKE_BUILD_TOOL MATCHES "(msdev|devenv|nmake)" )
     if (WIN32)
     else (WIN32)
