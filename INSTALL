@@ -10,7 +10,7 @@ Under unices, something like:
 	make
 	make install
 	
-Under windows, once can try something like:
+Under windows, one can try something like:
 
 	call "C:\Qt\5.2.0\mingw48_32\bin\qtenv2.bat"
 	H:
