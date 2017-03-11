@@ -69,7 +69,7 @@
      <x>0</x>
      <y>0</y>
      <width>580</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -116,6 +116,8 @@
      </property>
     </widget>
     <addaction name="menuLanguage"/>
+    <addaction name="separator"/>
+    <addaction name="actionWrap_text"/>
     <addaction name="separator"/>
     <addaction name="actionPreview"/>
    </widget>
@@ -384,6 +386,21 @@
    </property>
    <property name="toolTip">
     <string>The Graphviz library is used to create the structure that is then represented using Qt.</string>
+   </property>
+  </action>
+  <action name="actionWrap_text">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../application.qrc">
+     <normaloff>:/resources/images/word_wrap.png</normaloff>:/resources/images/word_wrap.png</iconset>
+   </property>
+   <property name="text">
+    <string>Wrap text</string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When checked long lines are going to overflow on the next line.&lt;/p&gt;&lt;p&gt;When unchecked long lines are going to be only partially visible.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </action>
  </widget>

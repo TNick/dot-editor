@@ -88,5 +88,6 @@
         <file>resources/images/stop.png</file>
         <file>resources/images/str-change.png</file>
         <file>resources/images/run.png</file>
-    </qresource>
+        <file>resources/images/word_wrap.png</file>
+   </qresource>
 </RCC>
