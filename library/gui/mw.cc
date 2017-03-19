@@ -1125,7 +1125,7 @@ bool MW::genImg		 (bool b_force)
             return false;
     }
 
-    return impl_->perform();
+    return impl_->perform ();
 }
 /* ========================================================================= */
 

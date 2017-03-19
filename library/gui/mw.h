@@ -368,6 +368,14 @@ public slots:
     void                setWrapText          (bool b_enabled);
 
 
+public:
+
+    //! Get current file.
+    const QString  &
+    currentFile () const {
+        return curFile;
+    }
+
 private:
 
 
