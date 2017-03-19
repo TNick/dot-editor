@@ -73,7 +73,7 @@ private:
 	/**
 	*	@brief	common initialisation for all constructors
 	*/
-	void		init			( void );
+	void		init			 ();
 
 
 
@@ -104,7 +104,7 @@ protected:
 	/**
 	*	@brief	zooming using this one
 	*/
-	void		wheelEvent		( QWheelEvent *event );
+	void		wheelEvent		 (QWheelEvent *event);
 
 
 private slots:
@@ -113,13 +113,13 @@ private slots:
 	/**
 	*	@brief	zooming utility
 	*/
-	void		scalingTime		( qreal x );
+	void		scalingTime		 (qreal x);
 
 
 	/**
 	*	@brief	zooming utility
 	*/
-	void		animFinished	( void );
+	void		animFinished	 ();
 
 
 

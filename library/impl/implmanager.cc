@@ -56,14 +56,14 @@ ImplManager *		ImplManager::uniq_ = NULL;
 /*  CLASS    --------------------------------------------------------------- */
 
 /* ------------------------------------------------------------------------- */
-ImplInterf *		kb__CreateProg					( void )
+ImplInterf *		kb__CreateProg					()
 {
 	return ImplProg::unique();
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-ImplInterf *		kb__CreateGViz					( void )
+ImplInterf *		kb__CreateGViz					()
 {
 #ifdef	DE_WITH_GRAPHVIZ
 	return ImplGVizLib::unique();
@@ -74,30 +74,30 @@ ImplInterf *		kb__CreateGViz					( void )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-ImplManager::ImplManager	( void )
+ImplManager::ImplManager	()
 {
-	Q_ASSERT( uniq_ == NULL );
+	Q_ASSERT (uniq_ == NULL);
 	uniq_ = this;
 
 	/* WARNING! the order here must match the order in ImplInterf::BIn */
-	impl_lst_.append( kb__CreateProg );
-	impl_lst_.append( kb__CreateGViz ); /* may be NULL */
+	impl_lst_.append (kb__CreateProg);
+	impl_lst_.append (kb__CreateGViz); /* may be NULL */
 
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-ImplManager::~ImplManager	( void )
+ImplManager::~ImplManager	()
 {
-	Q_ASSERT( uniq_ == this );
+	Q_ASSERT (uniq_ == this);
 	uniq_ = NULL;
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-bool			ImplManager::init				( void )
+bool			ImplManager::init				()
 {
-	if ( uniq_ != NULL )
+	if (uniq_ != NULL)
 		return true;
 
 	new	ImplManager();
@@ -106,9 +106,9 @@ bool			ImplManager::init				( void )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void			ImplManager::end				( void )
+void			ImplManager::end				()
 {
-	if ( uniq_ == NULL )
+	if (uniq_ == NULL)
 		return;
 
 	delete uniq_;
@@ -117,7 +117,7 @@ void			ImplManager::end				( void )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-bool			ImplManager::hasGViz			( void )
+bool			ImplManager::hasGViz			()
 {
 #	ifdef	DE_WITH_GRAPHVIZ
 	return true;

@@ -116,42 +116,42 @@ public:
 	/**
 	*	@brief	constructor;
 	*/
-	CodeEditor			( QWidget *parent = 0 );
+	CodeEditor			 (QWidget *parent = 0);
 
 
 	/**
 	*	@brief	destructor;
 	*/
-	~CodeEditor			( void );
+	~CodeEditor			 ();
 
 
-	void		lineNumberAreaPaintEvent		( QPaintEvent *event );
+	void		lineNumberAreaPaintEvent		 (QPaintEvent *event);
 
-	int			lineNumberAreaWidth				( void );
+	int			lineNumberAreaWidth				 ();
 
 protected:
 
-	void		resizeEvent						( QResizeEvent *event );
+	void		resizeEvent						 (QResizeEvent *event);
 
 	/**
 	*	@brief	handles auto-indentation
 	*/
-	void		keyPressEvent					( QKeyEvent * e );
+	void		keyPressEvent					 (QKeyEvent * e);
 
 
 	/**
 	*	@brief	zooming using this one
 	*/
-	void		wheelEvent		( QWheelEvent * event );
+	void		wheelEvent		 (QWheelEvent * event);
 
 
 private slots:
 
-	void		updateLineNumberAreaWidth		( int newBlockCount );
+	void		updateLineNumberAreaWidth		 (int newBlockCount);
 
-	void		highlightCurrentLine			( void );
+	void		highlightCurrentLine			 ();
 
-	void		updateLineNumberArea			( const QRect &, int );
+	void		updateLineNumberArea			 (const QRect &, int);
 
 
 
@@ -207,7 +207,7 @@ public:
 		codeEditor = editor;
 	}
 
-	QSize				sizeHint		( void ) const
+	QSize				sizeHint		() const
 	{
 		return QSize(codeEditor->lineNumberAreaWidth(), 0);
 	}
@@ -215,7 +215,7 @@ public:
 protected:
 
 
-	void				paintEvent		( QPaintEvent * event )
+	void				paintEvent	 (QPaintEvent * event)
 	{
 		codeEditor->lineNumberAreaPaintEvent(event);
 	}

@@ -176,85 +176,85 @@ public:
 	/**
 	*	@brief	destructor;
 	*/
-	~GVzNode			( void );
+	~GVzNode			 ();
 
 
 	/**
 	*	@brief	re-examines the content and caches some values
 	*/
-	void				updateCachedData			( void );
+	void				updateCachedData			 ();
 
 
 	/**
 	*	@brief	parent node; if this ia a top level node returns NULL
 	*/
-	inline GVzNode *	parentNode					( void )
+	inline GVzNode *	parentNode					()
 	{ return fth_; }
 
 
 	/**
 	*	@brief	set parent node
 	*/
-	inline void			setParentNode				( GVzNode * new_val )
+	inline void			setParentNode			 (GVzNode * new_val)
 	{ fth_ = new_val; }
 
 
 	/**
 	*	@brief	append an edge to the list stored inside
 	*/
-	inline void			appendEdge					( GVzEdge * new_edg )
-	{ edg_l_.append( new_edg ); }
+	inline void			appendEdge				 (GVzEdge * new_edg)
+	{ edg_l_.append (new_edg); }
 
 
 	/**
 	*	@brief	tell the shape to outter world
 	*/
-	inline NdShape		nodeShape					( void ) const
+	inline NdShape		nodeShape					() const
 	{ return shp_; }
 
 
 	/**
 	*	@brief	tell the label to outter world
 	*/
-	QString				label						( void ) const;
+	QString				label						() const;
 
 
 	/**
 	*	@brief	tell the number of edges that leave this node
 	*/
-	inline int			edgeCount					( void ) const
+	inline int			edgeCount					() const
 	{ return edg_l_.count(); }
 
 
 	/**
 	*	@brief	list of edges leaving from this node
 	*/
-	inline QList<GVzEdge*>	edges					( void ) const
+	inline QList<GVzEdge*>	edges					() const
 	{ return edg_l_; }
 
 
 	/**
 	*	@brief	list of nodes that are tied to this one
 	*/
-	QList<GVzNode*>			nodes					( void ) const;
+	QList<GVzNode*>			nodes					() const;
 
 
 	/**
 	*	@brief	change the visually apparence of the node
 	*/
-	void					setHighlite				( bool b_sts );
+	void					setHighlite				 (bool b_sts);
 
 
 	/**
 	*	@brief	tell if the node is highlited or not
 	*/
-	inline bool				isHighlited				( void ) const
-	{ return ( ( st_lst_ & ST_HIGHLITE ) != 0 ); }
+	inline bool				isHighlited				() const
+	{ return  (( st_lst_ & ST_HIGHLITE ) != 0); }
 
 
 protected:
 
-	QRectF			boundingRect			( void ) const;
+	QRectF			boundingRect			() const;
 
 	void			paint					(
 			QPainter *							painter,

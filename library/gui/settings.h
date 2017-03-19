@@ -34,7 +34,8 @@
 //
 /*  CLASS    --------------------------------------------------------------- */
 
-class	QModelIndex;
+class QModelIndex;
+struct SaveStrategy;
 
 namespace Ui {
 class Settings;
@@ -45,61 +46,61 @@ namespace	Gui		{
 
 class Settings : public QDialog
 {
-	Q_OBJECT
+    Q_OBJECT
 
 private:
 
-	//
-	//
-	//
-	//
-	/*  DEFINITIONS    ----------------------------------------------------- */
+    //
+    //
+    //
+    //
+    /*  DEFINITIONS    ----------------------------------------------------- */
 
-	/*  DEFINITIONS    ===================================================== */
-	//
-	//
-	//
-	//
-	/*  DATA    ------------------------------------------------------------ */
+    /*  DEFINITIONS    ===================================================== */
+    //
+    //
+    //
+    //
+    /*  DATA    ------------------------------------------------------------ */
 
 private:
 
 
-	/**
-	*	@brief	content generated from form
-	*/
-	Ui::Settings *		ui;
+    /**
+    *	@brief	content generated from form
+    */
+    Ui::Settings *		ui;
 
 
-	/**
-	*	@brief	tell if the snippets were edited
-	*/
-	bool				b_snipp_ed_;
+    /**
+    *	@brief	tell if the snippets were edited
+    */
+    bool				b_snipp_ed_;
 
 
-	/**
-	*	@brief	the one and only instance if shown, otherwise NULL
-	*/
-	static Settings *	uniq_;
+    /**
+    *	@brief	the one and only instance if shown, otherwise NULL
+    */
+    static Settings *	uniq_;
 
-	/*  DATA    ============================================================ */
-	//
-	//
-	//
-	//
-	/*  FUNCTIONS    ------------------------------------------------------- */
+    /*  DATA    ============================================================ */
+    //
+    //
+    //
+    //
+    /*  FUNCTIONS    ------------------------------------------------------- */
 public:
 
-	/**
-	*	@brief	constructor
-	*/
-	explicit Settings			( QWidget *parent = 0 );
+    /**
+    *	@brief	constructor
+    */
+    explicit Settings			 (QWidget *parent = 0);
 
 
-	/**
-	*	@brief	destructor
-	*/
-	~Settings();
+    /**
+    *	@brief	destructor
+    */
+    ~Settings();
 
 
 
@@ -107,16 +108,16 @@ public:
 protected:
 
 
-	/**
-	*	@brief	Implemented to allow trapping the language change event
-	*/
-	void				changeEvent		( QEvent *e );
+    /**
+    *	@brief	Implemented to allow trapping the language change event
+    */
+    void				changeEvent		 (QEvent *e);
 
 
-	/**
-	*	@brief	Implemented to allow saing the changes before exit
-	*/
-	void				closeEvent		( QCloseEvent *event );
+    /**
+    *	@brief	Implemented to allow saing the changes before exit
+    */
+    void				closeEvent		 (QCloseEvent *event);
 
 
 
@@ -124,54 +125,54 @@ protected:
 private slots:
 
 
-	/**
-	*	@brief	applies the settings to main window
-	*/
-	void				saveStgToMain	( void );
+    /**
+    *	@brief	applies the settings to main window
+    */
+    void				saveStgToMain	 ();
 
 
-	/**
-	*	@brief	shows default values in dialog
-	*/
-	void				resetToDef		( void );
+    /**
+    *	@brief	shows default values in dialog
+    */
+    void				resetToDef		 ();
 
 
-	/**
-	*	@brief	shows values from man window
-	*/
-	void				resetToMain		( void );
+    /**
+    *	@brief	shows values from man window
+    */
+    void				resetToMain		 ();
 
 
-	/**
-	*	@brief	select the program to run
-	*/
-	void				selProgram		( void );
+    /**
+    *	@brief	select the program to run
+    */
+    void				selProgram		 ();
 
 
-	/**
-	*	@brief	select the database to use
-	*/
-	void				selSnipDbf		( void );
+    /**
+    *	@brief	select the database to use
+    */
+    void				selSnipDbf		 ();
 
 
-	/**
-	*	@brief	load new database in the editor
-	*/
-	void				changeSnipDbf	( void );
+    /**
+    *	@brief	load new database in the editor
+    */
+    void				changeSnipDbf	 ();
 
 
-	/**
-	*	@brief	informed about changes in snippets editor
-	*/
-	void				txSnipChanged	( void );
+    /**
+    *	@brief	informed about changes in snippets editor
+    */
+    void				txSnipChanged	 ();
 
 
-	/**
-	*	@brief	double-click in list of plug-ins
-	*/
-	void				dbClickPlugIns	(
-			const QModelIndex &			mi
-			);
+    /**
+    *	@brief	double-click in list of plug-ins
+    */
+    void				dbClickPlugIns	(
+            const QModelIndex &			mi
+            );
 
 
 
@@ -179,29 +180,38 @@ private slots:
 private:
 
 
-	/**
-	*	@brief	load the list of plug-ins from plug-in manager
-	*
-	*	The method clears current content in the list and requests fresh info.
-	*/
-	void				getPlugInList	( void );
+    /**
+    *	@brief	load the list of plug-ins from plug-in manager
+    *
+    *	The method clears current content in the list and requests fresh info.
+    */
+    void				getPlugInList	 ();
 
 
-	/**
-	*	@brief	ask the PlugIn Manager to syncronise its state
-	*/
-	void				savePlugInList	( void );
+    /**
+    *	@brief	ask the PlugIn Manager to syncronise its state
+    */
+    void				savePlugInList	 ();
 
 
+    //! Save the way we save files.
+    void
+    saveSaveStrategy (
+            SaveStrategy & data );
+
+    //! Load the way we save files.
+    void
+    loadSaveStrategy (
+            const SaveStrategy & data );
 
 
 public:
 
 
-	/**
-	*	@brief	present the settings dialog if not shown already
-	*/
-	static void			showSetting		( void );
+    /**
+    *	@brief	present the settings dialog if not shown already
+    */
+    static void			showSetting		 ();
 
 
 /*  FUNCTIONS    ======================================================= */

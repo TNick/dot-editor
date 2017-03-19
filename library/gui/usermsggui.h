@@ -90,10 +90,10 @@ private:
 	explicit			UserMsgGui		(QWidget *parent = 0);
 
 	/// destructor;
-	~UserMsgGui			( void );
+	~UserMsgGui			 ();
 
 	/// updates the text shown to the user based on the \b m_lst_
-	void				updateText			( void );
+	void				updateText			 ();
 
 
 public:
@@ -105,11 +105,11 @@ public:
 	static void			showMsg			(UserMsg::MsgCacheList * msg);
 
 	/// tell if the dialog is shown or not
-	static bool			isShown			( void )
+	static bool			isShown			()
 	{ return uniq_inst_ != NULL; }
 
 	/// informed that it should update the display (check boxes and text)
-	static void			maskChanged		( void );
+	static void			maskChanged		 ();
 
 protected:
 
@@ -117,10 +117,10 @@ protected:
 	void				changeEvent		(QEvent *e);
 
 protected slots:
-	void				closeMe					( void );
-	void				help					( void );
-	void				showSettings			( void );
-	void				chgWhatIsShown			( void );
+	void				closeMe					 ();
+	void				help					 ();
+	void				showSettings			 ();
+	void				chgWhatIsShown			 ();
 
 
 	/*  FUNCTIONS    ======================================================= */

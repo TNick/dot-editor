@@ -70,11 +70,11 @@ bool dot_editor_lib_init ()
                             QStandardPaths::DataLocation).at(0)
             #endif
                 );
-    d.cd( DATA_FLD_TRANSL );
+    d.cd (DATA_FLD_TRANSL);
     translator.load(
                 d.absoluteFilePath(
-                    LANG_FILE( locale ) ) );
-    qApp->installTranslator( &translator );
+                    LANG_FILE (locale ) ));
+    qApp->installTranslator (&translator);
 
     return true;
 }

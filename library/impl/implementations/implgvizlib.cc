@@ -61,10 +61,10 @@ ImplGVizLib *		ImplGVizLib::uniq_ = NULL;
 /*  CLASS    --------------------------------------------------------------- */
 
 /* ------------------------------------------------------------------------- */
-ImplGVizLib::ImplGVizLib	( void )
+ImplGVizLib::ImplGVizLib	()
 	: ImplInterf()
 {
-	Q_ASSERT( uniq_ == NULL );
+	Q_ASSERT (uniq_ == NULL);
 	uniq_ = this;
 
 	s_.load();
@@ -73,43 +73,43 @@ ImplGVizLib::ImplGVizLib	( void )
 	context_ = gvContext();
 	graph_ = NULL;
 
-	Q_ASSERT( context_ != NULL );
+	Q_ASSERT (context_ != NULL);
 
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-ImplGVizLib::~ImplGVizLib	( void )
+ImplGVizLib::~ImplGVizLib	()
 {
 	s_.save();
 
-	if ( graph_ != NULL )
+	if (graph_ != NULL)
 	{
 		gvFreeLayout( context_, graph_);
-		agclose( graph_ );
+		agclose (graph_);
 	}
 
-	gvFreeContext( context_ );
+	gvFreeContext (context_);
 
-	Q_ASSERT( uniq_ == this );
+	Q_ASSERT (uniq_ == this);
 	uniq_ = NULL;
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void				ImplGVizLib::Stg::save			( void )
+void				ImplGVizLib::Stg::save			()
 {
 	QSettings stgs;
-	Q_UNUSED( stgs );
+	Q_UNUSED (stgs);
 
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void				ImplGVizLib::Stg::load			( void )
+void				ImplGVizLib::Stg::load			()
 {
 	QSettings stgs;
-	Q_UNUSED( stgs );
+	Q_UNUSED (stgs);
 
 }
 /* ========================================================================= */
@@ -155,31 +155,31 @@ static inline int			_agset			(
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-bool				ImplGVizLib::perform			( void )
+bool				ImplGVizLib::perform			()
 {
 	QString s = GuiCtrl::editorText().trimmed();
 
 	/* clear the scene */
 	img_scene.clear();
-	if ( graph_ != NULL )
+	if (graph_ != NULL)
 	{
 		gvFreeLayout( context_, graph_);
-		agclose( graph_ );
+		agclose (graph_);
 		graph_ = NULL;
 	}
 
 	/* don't bother if there's nothing to do */
-	if ( s.isEmpty() )
+	if (s.isEmpty())
 	{
 		return true;
 	}
 
 	/* get dot info about this graph */
-	graph_ = agmemread( const_cast<char*>( qPrintable( s ) ) );
-	if ( graph_ == NULL )
+	graph_ = agmemread (const_cast<char*>( qPrintable( s ) ));
+	if (graph_ == NULL)
 		return false;
 
-	gvLayout( context_, graph_, "dot" );
+	gvLayout (context_, graph_, "dot");
 
 	Agnode_t * n;
 	Agedge_t *e;
@@ -193,13 +193,13 @@ bool				ImplGVizLib::perform			( void )
 	tl_nodes_.clear();
 
 	/* iterate in nodes created now */
-	n = agfstnode( graph_ );
-	//for (n = agfstnode( graph_ ); n; n = agnxtnode( graph_, n ) )
+	n = agfstnode (graph_);
+	//for (n = agfstnode (graph_); n; n = agnxtnode( graph_, n ) )
 	while( n != NULL )
 	{
-		nd = new GVzNode( NULL, n, NULL );
-		nodes.append( nd );
-		img_scene.addItem( nd );
+		nd = new GVzNode (NULL, n, NULL);
+		nodes.append (nd);
+		img_scene.addItem (nd);
 		b_sub_n = false;
 		qDebug() << nd->label();
 		qDebug() << "\t from node " << (void*)n;
@@ -207,33 +207,33 @@ bool				ImplGVizLib::perform			( void )
 		foreach( edg, edges )
 		{
 
-			if ( edg->dot_e_->head == n )
+			if (edg->dot_e_->head == n)
 			{
-				edges.removeOne( edg );
-				edg->setDestination( nd );
-				nd->setParentNode( edg->source() );
+				edges.removeOne (edg);
+				edg->setDestination (nd);
+				nd->setParentNode (edg->source());
 				b_sub_n = true;
 				qDebug() << "\t appended to " << (void*)edg;
 				break;
 			}
 		}
-		if ( b_sub_n == false )
+		if (b_sub_n == false)
 		{
-			tl_nodes_.append( nd );
+			tl_nodes_.append (nd);
 		}
 
-		for ( e = agfstout( graph_, n ); e; e = agnxtout( graph_, e ) )
+		for  (e = agfstout( graph_, n); e; e = agnxtout( graph_, e ) )
 		{
-			edg = new GVzEdge( NULL, e, nd, NULL );
-			img_scene.addItem( edg );
-			nd->appendEdge( edg );
-			edges.append( edg );
+			edg = new GVzEdge (NULL, e, nd, NULL);
+			img_scene.addItem (edg);
+			nd->appendEdge (edg);
+			edges.append (edg);
 			qDebug() << "\t edge" << (void*)e << "  " << (void*)edg
 					 << "\t head " << e->head << "\t tail " << e->tail;
 
 		}
 
-		n = agnxtnode( graph_, n );
+		n = agnxtnode (graph_, n);
 	}
 
 	foreach( edg, edges )
@@ -241,10 +241,10 @@ bool				ImplGVizLib::perform			( void )
 		qDebug() << "Left in l: " << (void*)edg;
 		foreach( nd, nodes )
 		{
-			if ( edg->dot_e_->head == nd->dot_n_ )
+			if (edg->dot_e_->head == nd->dot_n_)
 			{
-				edg->setDestination( nd );
-				nd->setParentNode( edg->source() );
+				edg->setDestination (nd);
+				nd->setParentNode (edg->source());
 				qDebug() << "Found: " << (void*)edg << " " << (void*)nd;
 			}
 		}
@@ -258,16 +258,16 @@ bool				ImplGVizLib::perform			( void )
 void				ImplGVizLib::ctxDisplay			(
 		const QPoint & loc, const QPoint & glob_loc )
 {
-	Q_UNUSED( loc );
-	Q_UNUSED( glob_loc );
+	Q_UNUSED (loc);
+	Q_UNUSED (glob_loc);
 
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-ImplGVizLib::Stg	ImplGVizLib::settings			( void )
+ImplGVizLib::Stg	ImplGVizLib::settings			()
 {
-	if ( uniq_ == NULL )
+	if (uniq_ == NULL)
 	{
 		Stg	s_ret;
 		s_ret.load();
@@ -281,9 +281,9 @@ ImplGVizLib::Stg	ImplGVizLib::settings			( void )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void				ImplGVizLib::setSettings		( ImplGVizLib::Stg & stg )
+void				ImplGVizLib::setSettings	 (ImplGVizLib::Stg & stg)
 {
-	if ( uniq_ == NULL )
+	if (uniq_ == NULL)
 	{
 		stg.save();
 	}
@@ -296,14 +296,14 @@ void				ImplGVizLib::setSettings		( ImplGVizLib::Stg & stg )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void				ImplGVizLib::applySettings		( void )
+void				ImplGVizLib::applySettings		()
 {
 
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-QAction *			ImplGVizLib::action				( void )
+QAction *			ImplGVizLib::action				()
 {
 	return Gui::MW::unique()->predefAct_GViz();
 }

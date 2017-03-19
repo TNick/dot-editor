@@ -76,15 +76,15 @@ public:
 	/**
 	*	@brief	constructor
 	*/
-	explicit			AboutDlg		( QWidget *parent = 0 );
+	explicit			AboutDlg		 (QWidget *parent = 0);
 
 	/**
 	*	@brief	destructor
 	*/
-	~AboutDlg			(void);
+	~AboutDlg			();
 
 protected:
-	void				changeEvent		( QEvent *e );
+	void				changeEvent		 (QEvent *e);
 
 	/*  FUNCTIONS    ======================================================= */
 	//

@@ -76,7 +76,7 @@ GVzEdge::GVzEdge	(
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-GVzEdge::~GVzEdge	( void )
+GVzEdge::~GVzEdge	()
 {
 
 	//	char * shape = agget(abc,"shape");
@@ -91,13 +91,13 @@ GVzEdge::~GVzEdge	( void )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-QString					GVzEdge::label						( void ) const
+QString					GVzEdge::label						() const
 {
-	if ( dot_e_ == NULL )
+	if (dot_e_ == NULL)
 		return QString();
 
-	textlabel_t * tl = ED_label( dot_e_ );
-	if ( tl == NULL )
+	textlabel_t * tl = ED_label (dot_e_);
+	if (tl == NULL)
 		return QString();
 
 	return tl->text;
@@ -107,12 +107,12 @@ QString					GVzEdge::label						( void ) const
 /* ------------------------------------------------------------------------- */
 void		addtxToPath ( textlabel_t * tl, QPainterPath & big_pth )
 {
-	if ( tl == NULL )
+	if (tl == NULL)
 		return;
 
 	QString lbl = tl->text;
 
-	if ( tl->html )
+	if (tl->html)
 	{
 		/** @todo	html rendering */
 	}
@@ -121,40 +121,40 @@ void		addtxToPath ( textlabel_t * tl, QPainterPath & big_pth )
 
 	}
 
-	if ( lbl.isEmpty() == false )
+	if (lbl.isEmpty() == false)
 	{
 
 		QFont f;
-		f.setFamily( tl->fontname );
-		f.setPointSize( tl->fontsize );
+		f.setFamily (tl->fontname);
+		f.setPointSize (tl->fontsize);
 
-		lbl.replace( "\\N", "\n", Qt::CaseInsensitive );
-		lbl.replace( "\\T", "\t", Qt::CaseInsensitive );
-		lbl.replace( "\\R", "\r", Qt::CaseInsensitive );
-		lbl.replace( "\\\\", "\\" );
+		lbl.replace ("\\N", "\n", Qt::CaseInsensitive);
+		lbl.replace ("\\T", "\t", Qt::CaseInsensitive);
+		lbl.replace ("\\R", "\r", Qt::CaseInsensitive);
+		lbl.replace ("\\\\", "\\");
 
-		big_pth.addText( tl->pos.x, -tl->pos.y, f, lbl );
+		big_pth.addText (tl->pos.x, -tl->pos.y, f, lbl);
 	}
 
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void					GVzEdge::updateCachedData			( void )
+void					GVzEdge::updateCachedData			()
 {/*https://code.monotone.ca/p/guitone/source/file/ca594791cdfb69f506df7a96d3b9411a3ed72616/src/model/GraphScene.cpp*/
 #define	q_agfindattr(a,b)	agfindattr( a, const_cast<char *>( b ) )
 
-	if ( dot_e_ == NULL )
+	if (dot_e_ == NULL)
 		return;
 
 	char * vl;
-	Agsym_t * atr_clr = q_agfindattr( dot_e_, "color" );
-	Agsym_t * atr_fillclr = q_agfindattr( dot_e_, "fillcolor" );
-	Agsym_t * atr_style = q_agfindattr( dot_e_, "style" );
-	Agsym_t * atr_ahead = q_agfindattr( dot_e_, "arrowhead" );
-	Agsym_t * atr_asize = q_agfindattr( dot_e_, "arrowsize" );
-	Agsym_t * atr_atail = q_agfindattr( dot_e_, "arrowtail" );
-	Agsym_t * atr_dir = q_agfindattr( dot_e_, "dir" );
+	Agsym_t * atr_clr = q_agfindattr (dot_e_, "color");
+	Agsym_t * atr_fillclr = q_agfindattr (dot_e_, "fillcolor");
+	Agsym_t * atr_style = q_agfindattr (dot_e_, "style");
+	Agsym_t * atr_ahead = q_agfindattr (dot_e_, "arrowhead");
+	Agsym_t * atr_asize = q_agfindattr (dot_e_, "arrowsize");
+	Agsym_t * atr_atail = q_agfindattr (dot_e_, "arrowtail");
+	Agsym_t * atr_dir = q_agfindattr (dot_e_, "dir");
 //	compound, len, lhead, ltail, minlen, nodesep, pin, pos, rank,
 //	rankdir, ranksep and weight.
 
@@ -182,44 +182,44 @@ void					GVzEdge::updateCachedData			( void )
 
 
 
-	if ( atr_clr != NULL ){
-		vl = agxget( dot_e_, atr_clr->index );
-		setPen( QColor( vl ).toRgb() );
+	if (atr_clr != NULL){
+		vl = agxget (dot_e_, atr_clr->index);
+		setPen (QColor( vl ).toRgb());
 	}
-	if ( atr_fillclr != NULL ){
-		vl = agxget( dot_e_, atr_fillclr->index );
-		setBrush( QColor( vl ).toRgb() );
+	if (atr_fillclr != NULL){
+		vl = agxget (dot_e_, atr_fillclr->index);
+		setBrush (QColor( vl ).toRgb());
 	}
-	if ( atr_style != NULL ){
-		vl = agxget( dot_e_, atr_style->index );
-		//painter->setPen( QColor( vl ).toRgb() );
+	if (atr_style != NULL){
+		vl = agxget (dot_e_, atr_style->index);
+		//painter->setPen (QColor( vl ).toRgb());
 	}
-	if ( atr_ahead != NULL ){
-		vl = agxget( dot_e_, atr_ahead->index );
-		//painter->setPen( QColor( vl ).toRgb() );
+	if (atr_ahead != NULL){
+		vl = agxget (dot_e_, atr_ahead->index);
+		//painter->setPen (QColor( vl ).toRgb());
 	}
-	if ( atr_asize != NULL ){
-		vl = agxget( dot_e_, atr_asize->index );
-		//painter->setPen( QColor( vl ).toRgb() );
+	if (atr_asize != NULL){
+		vl = agxget (dot_e_, atr_asize->index);
+		//painter->setPen (QColor( vl ).toRgb());
 	}
-	if ( atr_atail != NULL ){
-		vl = agxget( dot_e_, atr_atail->index );
-		//painter->setPen( QColor( vl ).toRgb() );
+	if (atr_atail != NULL){
+		vl = agxget (dot_e_, atr_atail->index);
+		//painter->setPen (QColor( vl ).toRgb());
 	}
-	if ( atr_dir != NULL ){
-		vl = agxget( dot_e_, atr_dir->index );
-		//painter->setPen( QColor( vl ).toRgb() );
+	if (atr_dir != NULL){
+		vl = agxget (dot_e_, atr_dir->index);
+		//painter->setPen (QColor( vl ).toRgb());
 	}
 
 	QPainterPath big_pth;
 
 	/* the labels */
-	addtxToPath( ED_label( dot_e_ ), big_pth );
-	addtxToPath( ED_head_label( dot_e_ ), big_pth );
-	addtxToPath( ED_tail_label( dot_e_ ), big_pth );
+	addtxToPath (ED_label( dot_e_ ), big_pth);
+	addtxToPath (ED_head_label( dot_e_ ), big_pth);
+	addtxToPath (ED_tail_label( dot_e_ ), big_pth);
 
 
-	splines *	sp_lst = ED_spl( dot_e_ );
+	splines *	sp_lst = ED_spl (dot_e_);
 	//	typedef struct splines {
 	//		bezier *list;
 	//		int size;
@@ -236,11 +236,11 @@ void					GVzEdge::updateCachedData			( void )
 		//		pointf sp, ep;
 		//	} bezier;
 
-		if ( sp_lst->list[i].size < 1 )
+		if (sp_lst->list[i].size < 1)
 			continue;
 		pointf * points = sp_lst->list[i].list;
 
-		if ( sp_lst->list[i].sflag )
+		if (sp_lst->list[i].sflag)
 		{ /* there is an arrow at head */
 			/* the point bz_l->sp is the tip of the arrow */
 
@@ -287,7 +287,7 @@ void					GVzEdge::updateCachedData			( void )
 						);
 		}
 
-		if ( sp_lst->list[i].eflag )
+		if (sp_lst->list[i].eflag)
 		{ /* there is an arrow at tail */
 			/* the point sp_lst->list[i].ep is the tip of the arrow */
 
@@ -325,7 +325,7 @@ void					GVzEdge::updateCachedData			( void )
 
 	/* see page 18 */
 
-	setPath( big_pth );
+	setPath (big_pth);
 
 }
 /* ========================================================================= */

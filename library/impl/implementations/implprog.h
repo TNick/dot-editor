@@ -96,13 +96,13 @@ public:
 		/**
 		*	@brief	dump to permanent storage
 		*/
-		void				save			( void );
+		void				save			 ();
 
 
 		/**
 		*	@brief	get from permanent storage
 		*/
-		void				load			( void );
+		void				load			 ();
 
 	};
 
@@ -180,13 +180,13 @@ private:
 	/**
 	*	@brief	constructor;
 	*/
-	ImplProg			( void );
+	ImplProg			 ();
 
 
 	/**
 	*	@brief	destructor;
 	*/
-	~ImplProg			( void );
+	~ImplProg			 ();
 
 
 
@@ -195,20 +195,20 @@ public:
 	/**
 	*	@brief	use this method to get the singleton (may create it)
 	*/
-	static ImplProg *	unique					( bool b_create = true )
-	{ if ( ( uniq_ == NULL ) && b_create ) new ImplProg(); return uniq_; }
+	static ImplProg *	unique				 (bool b_create = true)
+	{ if (( uniq_ == NULL ) && b_create) new ImplProg(); return uniq_; }
 
 
 	/**
 	*	@brief	tell the settings that govern us
 	*/
-	static Stg			settings				( void );
+	static Stg			settings				 ();
 
 
 	/**
 	*	@brief	change the settings that govern us
 	*/
-	static void			setSettings				( Stg & stg );
+	static void			setSettings				 (Stg & stg);
 
 
 
@@ -216,56 +216,56 @@ public:
 	/**
 	*	@brief	the process (path and name) to use
 	*/
-	inline QString		processName				( void ) const
+	inline QString		processName				() const
 	{ return s_.s_process_; }
 
 
 	/**
 	*	@brief	change the process (path and name) to use
 	*/
-	inline void			setProcessName			( const QString & s_new_val )
+	inline void			setProcessName		 (const QString & s_new_val)
 	{ s_.s_process_ = s_new_val; }
 
 
 	/**
 	*	@brief	the arguments for the process
 	*/
-	inline QString		procArgs				( void ) const
+	inline QString		procArgs				() const
 	{ return s_.s_arg_; }
 
 
 	/**
 	*	@brief	change the arguments for the process
 	*/
-	inline void			setProcArgs				( const QString & s_new_val )
+	inline void			setProcArgs			 (const QString & s_new_val)
 	{ s_.s_arg_ = s_new_val; }
 
 
 	/**
 	*	@brief	the input file
 	*/
-	inline QString		tmpInputFile			( void ) const
+	inline QString		tmpInputFile			() const
 	{ return s_.tmp_src_; }
 
 
 	/**
 	*	@brief	change the input file
 	*/
-	inline void			setTmpInputFile			( const QString & s_new_val )
+	inline void			setTmpInputFile		 (const QString & s_new_val)
 	{ s_.tmp_src_ = s_new_val; }
 
 
 	/**
 	*	@brief	the output file
 	*/
-	inline QString		tmpOutputFile			( void ) const
+	inline QString		tmpOutputFile			() const
 	{ return s_.tmp_dest_; }
 
 
 	/**
 	*	@brief	change the output file
 	*/
-	inline void			setTmpOutputFile		( const QString & s_new_val )
+	inline void			setTmpOutputFile	 (const QString & s_new_val)
 	{ s_.tmp_dest_ = s_new_val; }
 
 
@@ -275,13 +275,13 @@ private:
 	/**
 	*	@brief	saves provided content to temporary file
 	*/
-	bool				writeToTemp				( const QString & src_tx );
+	bool				writeToTemp				 (const QString & src_tx);
 
 
 	/**
 	*	@brief	"Signal" that the settings have changed
 	*/
-	void				applySettings			( void );
+	void				applySettings			 ();
 
 
 
@@ -298,7 +298,7 @@ public:
 	/**
 	*	@brief	Implementation is required to do its thing
 	*/
-	bool				perform					( void );
+	bool				perform					 ();
 
 
 	/**
@@ -312,14 +312,14 @@ public:
 	/**
 	*	@brief	the scene implemented by the implementation
 	*/
-	virtual QGraphicsScene*	scene				( void )
+	virtual QGraphicsScene*	scene				()
 	{ return &img_scene; }
 
 
 	/**
 	*	@brief	associated action
 	*/
-	QAction*			action					( void );
+	QAction*			action					 ();
 
 
 
@@ -351,7 +351,7 @@ private slots:
 	/**
 	*	@brief	informed that the process started succesfully
 	*/
-	void		proc_started			( void );
+	void		proc_started			 ();
 
 
 	/**
@@ -365,31 +365,31 @@ private slots:
 	/**
 	*	@brief	process has made new data available through its standard error channel
 	*/
-	void		proc_readyError			( void );
+	void		proc_readyError			 ();
 
 
 	/**
 	*	@brief	process has made new data available through its standard output channel
 	*/
-	void		proc_readyOutput		( void );
+	void		proc_readyOutput		 ();
 
 
 	/**
 	*	@brief	if the process is running it is stopped
 	*/
-	void		stopDotProcess			( void );
+	void		stopDotProcess			 ();
 
 
 	/**
 	*	@brief	if the process is running it is stopped
 	*/
-	void		startDotProcess			( void );
+	void		startDotProcess			 ();
 
 
 	/**
 	*	@brief	save curently displayed images as ...
 	*/
-	void		saveImageAs				( void );
+	void		saveImageAs				 ();
 
 
 

@@ -69,6 +69,7 @@ set ( LIB_HEADERS
     gui/mw.h
     gui/settings.h
     gui/usermsggui.h
+    gui/savestrategy.h.h
 )
 
 set ( LIB_UIS

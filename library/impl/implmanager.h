@@ -62,7 +62,7 @@ public:
 	/**
 	*	@brief	callback that creates an implementation
 	*/
-	typedef ImplInterf * (*kbCreateImpl)	( void );
+	typedef ImplInterf * (*kbCreateImpl)	 ();
 
 
 	/*  DEFINITIONS    ===================================================== */
@@ -99,13 +99,13 @@ private:
 	/**
 	*	@brief	constructor;
 	*/
-	ImplManager			( void );
+	ImplManager			 ();
 
 
 	/**
 	*	@brief	destructor;
 	*/
-	~ImplManager			( void );
+	~ImplManager			 ();
 
 
 
@@ -121,40 +121,40 @@ public:
 	*
 	*	The gui will call setImpl() with the index that was saved in settings.
 	*/
-	static bool					init					( void );
+	static bool					init					 ();
 
 
 	/**
 	*	@brief	termination method
 	*/
-	static void					end						( void );
+	static void					end						 ();
 
 
 	/**
 	*	@brief	termination method
 	*/
-	static inline ImplManager *	unique					( void )
+	static inline ImplManager *	unique					()
 	{ return uniq_; }
 
 
 	/**
 	*	@brief	add an callback capable of creating an implementation
 	*/
-	static inline void		addImplem				( kbCreateImpl kb_loc )
+	static inline void		addImplem			 (kbCreateImpl kb_loc)
 	{
-		if ( kb_loc == NULL ) return;
-		uniq_->impl_lst_.append( kb_loc );
+		if (kb_loc == NULL) return;
+		uniq_->impl_lst_.append (kb_loc);
 	}
 
 
 	/**
 	*	@brief	add an callback capable of creating an implementation
 	*/
-	static inline bool		remImplem				( kbCreateImpl kb_loc )
+	static inline bool		remImplem			 (kbCreateImpl kb_loc)
 	{
-		int idx = uniq_->impl_lst_.indexOf( kb_loc );
-		if ( idx < IMPL_MAX ) return false;
-		uniq_->impl_lst_.removeAt( idx );
+		int idx = uniq_->impl_lst_.indexOf (kb_loc);
+		if (idx < IMPL_MAX) return false;
+		uniq_->impl_lst_.removeAt (idx);
 		return true;
 	}
 
@@ -162,18 +162,18 @@ public:
 	/**
 	*	@brief	callback capable of creating an implementation at index \b idx
 	*/
-	static inline kbCreateImpl 	getImplCallback			( int idx )
+	static inline kbCreateImpl 	getImplCallback		 (int idx)
 	{
-		if ( ( idx < 0 ) || ( idx >= uniq_->impl_lst_.count() ) )
+		if (( idx < 0 ) || ( idx >= uniq_->impl_lst_.count() ))
 			return NULL;
-		return uniq_->impl_lst_.at( idx );
+		return uniq_->impl_lst_.at (idx);
 	}
 
 
 	/**
 	*	@brief	tell if the ImplGVizLib back-end is present in this binary
 	*/
-	static bool			hasGViz					( void );
+	static bool			hasGViz					 ();
 
 
 	/*  FUNCTIONS    ======================================================= */

@@ -39,10 +39,10 @@ enum	OUTCOME			{
 };
 
 //! was the result a succes (includes warnings)?
-#define		OUT_SUCCESS( o )	( o != OUTCOME_ERROR )
+#define		OUT_SUCCESS( o ) (o != OUTCOME_ERROR)
 
 //! was the result a succes (excludes warnings)?
-#define		OUT_FULL_SUCCESS( o )	( o == OUTCOME_OK )
+#define		OUT_FULL_SUCCESS( o ) (o == OUTCOME_OK)
 
 //! prepare the library for run
 DE_EXPORT bool

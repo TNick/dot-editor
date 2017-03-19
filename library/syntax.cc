@@ -50,7 +50,7 @@
 /*  CLASS    --------------------------------------------------------------- */
 
 /* ------------------------------------------------------------------------- */
-Syntax::Syntax	( QTextDocument * parent )
+Syntax::Syntax (QTextDocument * parent)
 	: QSyntaxHighlighter( parent )
 {
 
@@ -62,7 +62,7 @@ Syntax::Syntax	( QTextDocument * parent )
 	iter = &key_words[0];
 	while ( *iter != NULL )
 	{
-		rule.pattern = QRegExp( QString( "\\b%1\\b" ).arg( *iter ) );
+		rule.pattern = QRegExp (QString( "\\b%1\\b" ).arg( *iter ));
 		rule.format = keywordFormat;
 		highlightingRules.append(rule);
 
@@ -75,7 +75,7 @@ Syntax::Syntax	( QTextDocument * parent )
 	iter = &col_names[0];
 	while ( *iter != NULL )
 	{
-		rule.pattern = QRegExp( QString( "\\b%1\\b" ).arg( *iter ) );
+		rule.pattern = QRegExp (QString( "\\b%1\\b" ).arg( *iter ));
 		rule.format = keywordFormat;
 		highlightingRules.append(rule);
 
@@ -110,9 +110,9 @@ Syntax::Syntax	( QTextDocument * parent )
 
 	operatorsFormat.setFontItalic(false);
 	operatorsFormat.setForeground(Qt::darkMagenta);
-	rule.pattern = QRegExp( "[\\{\\}\\[\\],=]" );
+	rule.pattern = QRegExp ("[\\{\\}\\[\\],=]");
 	rule.format = operatorsFormat;
-	highlightingRules.append( rule );
+	highlightingRules.append (rule);
 
 
 
@@ -123,14 +123,14 @@ Syntax::Syntax	( QTextDocument * parent )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-Syntax::~Syntax	( void )
+Syntax::~Syntax	()
 {
 	/* stub */
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void				Syntax::highlightBlock	( const QString & text )
+void				Syntax::highlightBlock (const QString & text)
 {
 
 	foreach (HighlightingRule rule, highlightingRules)

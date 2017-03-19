@@ -40,12 +40,12 @@
 /*  DEFINITIONS    --------------------------------------------------------- */
 
 /* Intrface with the GUI for UserMsg */
-extern bool		GUI_isCmdLogVisible		( void );
-extern void		GUI_showCmdLog			( void );
-extern void		GUI_showCmdLogMessage	( UserMsg::MsgCacheList * p_msg );
-extern void		GUI_showCmdLogMessage	( UserMsg * p_msg );
-extern void		GUI_showPopUpMessage	( UserMsg::MsgCacheList * p_msg );
-extern void		GUI_showPopUpMessage	( UserMsg * p_msg );
+extern bool		GUI_isCmdLogVisible		 ();
+extern void		GUI_showCmdLog			 ();
+extern void		GUI_showCmdLogMessage	 (UserMsg::MsgCacheList * p_msg);
+extern void		GUI_showCmdLogMessage	 (UserMsg * p_msg);
+extern void		GUI_showPopUpMessage	 (UserMsg::MsgCacheList * p_msg);
+extern void		GUI_showPopUpMessage	 (UserMsg * p_msg);
 
 /*  DEFINITIONS    ========================================================= */
 //
@@ -67,7 +67,7 @@ UserMsg::StatData *			UserMsg::d_ = NULL;
 
 
 /* ------------------------------------------------------------------------- */
-void			UserMsg::startUp			( void )
+void			UserMsg::startUp			()
 {
 	QSettings	stg;
 	d_ = new StatData();
@@ -79,32 +79,32 @@ void			UserMsg::startUp			( void )
 			QObject::tr("Debug Info");
 
 	/* start logging dead messages */
-	if ( stg.value("stg/logDeadmsg").toBool() )
+	if (stg.value("stg/logDeadmsg").toBool())
 	{
 		initDeadLog();
 	}
 
-	setOutputType( MSGTY_DISABLED );
+	setOutputType (MSGTY_DISABLED);
 	doDefaultFormat();
 
 	bool ok = false;
 	int	i_val = stg.value(
 				"stg/msgFilter",
 				MVIZ_ERROR | MVIZ_WARNING
-				).toInt( &ok );
-	if ( ok && (i_val >= 0) && (i_val < MVIZ_MAX) )
+				).toInt (&ok);
+	if (ok && (i_val >= 0) && (i_val < MVIZ_MAX))
 	{
-		d_->viz_lst_ = static_cast<MsgVisible>( i_val );
+		d_->viz_lst_ = static_cast<MsgVisible> (i_val);
 	}
 	else
 	{
-		d_->viz_lst_ = static_cast<MsgVisible>( MVIZ_ERROR | MVIZ_WARNING );
+		d_->viz_lst_ = static_cast<MsgVisible> (MVIZ_ERROR | MVIZ_WARNING);
 	}
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void			UserMsg::finishUp			( void )
+void			UserMsg::finishUp			()
 {
 
 	/* show any messages left in cache */
@@ -125,25 +125,25 @@ void			UserMsg::finishUp			( void )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void			UserMsg::initialDisplay			( void )
+void			UserMsg::initialDisplay			()
 {
 	QSettings	stg;
 	bool ok = false;
-	int	i_val = stg.value( "stg/msgType", MSGTY_LOG_OR_POPUP ).toInt( &ok );
-	if ( ok && (i_val >= 0) && (i_val < MSGTY_MAX) )
+	int	i_val = stg.value ("stg/msgType", MSGTY_LOG_OR_POPUP ).toInt( &ok);
+	if (ok && (i_val >= 0) && (i_val < MSGTY_MAX))
 	{
-		UserMsg::setOutputType( static_cast<MsgOutType>( i_val ) );
+		UserMsg::setOutputType (static_cast<MsgOutType>( i_val ));
 	}
 	else
 	{
-		UserMsg::setOutputType( MSGTY_LOG_OR_POPUP );
+		UserMsg::setOutputType (MSGTY_LOG_OR_POPUP);
 	}
 
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void			UserMsg::initDeadLog		( void )
+void			UserMsg::initDeadLog		()
 {
 	QSettings	stg;
 	if (d_->file_dead.isOpen())
@@ -153,12 +153,12 @@ void			UserMsg::initDeadLog		( void )
 	}
 
 	QString s_file = stg.value("stg/logDeadmsg").toString();
-	if ( s_file.isNull() == false )
+	if (s_file.isNull() == false)
 	{
-		d_->file_dead.setFileName( s_file );
-		if ( d_->file_dead.open( QFile::WriteOnly ) )
+		d_->file_dead.setFileName (s_file);
+		if (d_->file_dead.open( QFile::WriteOnly ))
 		{
-			d_->stx_dead.setDevice( &d_->file_dead );
+			d_->stx_dead.setDevice (&d_->file_dead);
 			return;
 		}
 	}
@@ -171,13 +171,13 @@ void			UserMsg::initDeadLog		( void )
 									 "could not be opened")
 						 .arg(s_file));
 	d_->file_dead.open(stdout, QIODevice::WriteOnly);
-	d_->stx_dead.setDevice( &d_->file_dead );
+	d_->stx_dead.setDevice (&d_->file_dead);
 
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void					UserMsg::doDefaultFormat		( bool b_forced )
+void					UserMsg::doDefaultFormat	 (bool b_forced)
 {
 	QSettings	stg;
 
@@ -185,58 +185,58 @@ void					UserMsg::doDefaultFormat		( bool b_forced )
 	d_->html_format_.clear();
 
 	s_tmp = stg.value( "stg/ERROR_FORMAT" ).toString();
-	if ( ( b_forced || s_tmp.isEmpty() ) )
+	if (( b_forced || s_tmp.isEmpty() ))
 	{
 		s_tmp = "<p><font color=\"red\">Error: ##TEXT##</font></p>\n";
-		stg.setValue( "stg/ERROR_FORMAT", s_tmp );
+		stg.setValue ("stg/ERROR_FORMAT", s_tmp);
 	}
 	d_->html_format_ << s_tmp;
 
 	s_tmp = stg.value( "stg/WARNING_FORMAT" ).toString();
-	if ( ( b_forced || s_tmp.isEmpty() ) )
+	if (( b_forced || s_tmp.isEmpty() ))
 	{
 		s_tmp = "<p><font color=\"green\">Warning: ##TEXT##</font></p>\n";
-		stg.setValue( "stg/WARNING_FORMAT", s_tmp );
+		stg.setValue ("stg/WARNING_FORMAT", s_tmp);
 	}
 	d_->html_format_ << s_tmp;
 
 	s_tmp = stg.value( "stg/INFO_FORMAT" ).toString();
-	if ( ( b_forced || s_tmp.isEmpty() ) )
+	if (( b_forced || s_tmp.isEmpty() ))
 	{
 		s_tmp = "<p><font color=\"blue\">Information: ##TEXT##</font></p>\n";
-		stg.setValue( "stg/INFO_FORMAT", s_tmp );
+		stg.setValue ("stg/INFO_FORMAT", s_tmp);
 	}
 	d_->html_format_ << s_tmp;
 
 	s_tmp = stg.value( "stg/DBG_ERROR_FORMAT" ).toString();
-	if ( ( b_forced || s_tmp.isEmpty() ) )
+	if (( b_forced || s_tmp.isEmpty() ))
 	{
 		s_tmp = "<p><font color=\"red\">Debug Error: ##TEXT##</font></p>\n";
-		stg.setValue( "stg/DBG_ERROR_FORMAT", s_tmp );
+		stg.setValue ("stg/DBG_ERROR_FORMAT", s_tmp);
 	}
 	d_->html_format_ << s_tmp;
 
 	s_tmp = stg.value( "stg/DBG_WARNING_FORMAT" ).toString();
-	if ( ( b_forced || s_tmp.isEmpty() ) )
+	if (( b_forced || s_tmp.isEmpty() ))
 	{
 		s_tmp = "<p><font color=\"red\">Debug warning: ##TEXT##</font></p>\n";
-		stg.setValue( "stg/DBG_WARNING_FORMAT", s_tmp );
+		stg.setValue ("stg/DBG_WARNING_FORMAT", s_tmp);
 	}
 	d_->html_format_ << s_tmp;
 
 	s_tmp = stg.value( "stg/DBG_INFO_FORMAT" ).toString();
-	if ( ( b_forced || s_tmp.isEmpty() ) )
+	if (( b_forced || s_tmp.isEmpty() ))
 	{
 		s_tmp = "<p><font color=\"red\">Debug information: ##TEXT##</font></p>\n";
-		stg.setValue( "stg/DBG_INFO_FORMAT", s_tmp );
+		stg.setValue ("stg/DBG_INFO_FORMAT", s_tmp);
 	}
 	d_->html_format_ << s_tmp;
 
 	s_tmp = stg.value( "stg/FORMAT" ).toString();
-	if ( ( b_forced || s_tmp.isEmpty() ) )
+	if (( b_forced || s_tmp.isEmpty() ))
 	{
 		s_tmp = "\n<h3>Message ##MSGID## at ##TIME##</h3>\n##MESSAGES##\n<br><br>";
-		stg.setValue( "stg/FORMAT", s_tmp );
+		stg.setValue ("stg/FORMAT", s_tmp);
 	}
 	d_->html_format_ << s_tmp;
 
@@ -244,14 +244,14 @@ void					UserMsg::doDefaultFormat		( bool b_forced )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void			UserMsg::setOutputType		( MsgOutType new_ty )
+void			UserMsg::setOutputType	 (MsgOutType new_ty)
 {
 	bool	b_flush = false;
 
-	if ( d_->out_ty_ == new_ty )
+	if (d_->out_ty_ == new_ty)
 		return;
 
-	if ( d_->out_ty_ == MSGTY_DISABLED )
+	if (d_->out_ty_ == MSGTY_DISABLED)
 	{
 		b_flush = true;
 	}
@@ -266,10 +266,10 @@ void			UserMsg::setOutputType		( MsgOutType new_ty )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void			UserMsg::flush				( void )
+void			UserMsg::flush				()
 {
 
-	if ( d_->out_ty_ == MSGTY_DISABLED )
+	if (d_->out_ty_ == MSGTY_DISABLED)
 	{
 		return;
 	}
@@ -289,7 +289,7 @@ void			UserMsg::flush				( void )
 			break; }
 
 		case	MSGTY_LOG_FORCED:		{
-			if ( !GUI_isCmdLogVisible( ) )
+			if (!GUI_isCmdLogVisible( ))
 				GUI_showCmdLog();
 			in_log = true;
 			break; }
@@ -299,18 +299,18 @@ void			UserMsg::flush				( void )
 			break; }
 
 		default:						{
-			Q_ASSERT( 0 );
+			Q_ASSERT (0);
 			in_log = false;
 			break; }
 		}
 
-		if ( in_log )
+		if (in_log)
 		{ /* in log window */
-			GUI_showCmdLogMessage( &d_->cache_msg_ );
+			GUI_showCmdLogMessage (&d_->cache_msg_);
 		}
 		else
 		{ /* in pop-up */
-			GUI_showPopUpMessage( &d_->cache_msg_ );
+			GUI_showPopUpMessage (&d_->cache_msg_);
 		}
 
 		d_->cache_msg_.clear();
@@ -335,11 +335,11 @@ UserMsg::~UserMsg		( )
 	QSettings	stg;
 
 	/* see if there are messages left unshown */
-	if ( msg_.count( ) != 0 )
+	if (msg_.count( ) != 0)
 	{
-		if ( stg.value("stg/logDeadmsg").toBool() )
+		if (stg.value("stg/logDeadmsg").toBool())
 		{
-			if ( d_->stx_dead.device() == NULL )
+			if (d_->stx_dead.device() == NULL)
 			{
 				initDeadLog();
 			}
@@ -362,24 +362,24 @@ UserMsg::~UserMsg		( )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void			UserMsg::add				( MsgType ty, QString message )
+void			UserMsg::add			 (MsgType ty, QString message)
 {
 	MsgEntry	new_e;
 	new_e.text = message;
 	new_e.type = ty;
-	msg_.append( new_e );
+	msg_.append (new_e);
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void			UserMsg::show				( void )
+void			UserMsg::show				()
 {
-	if ( msg_.count() == 0 )
+	if (msg_.count() == 0)
 	{
 		return;
 	}
 
-	if ( d_->out_ty_ == MSGTY_DISABLED )
+	if (d_->out_ty_ == MSGTY_DISABLED)
 	{
 		MsgCacheEntry	ce;
 		ce.id_ = id_;
@@ -401,7 +401,7 @@ void			UserMsg::show				( void )
 			break; }
 
 		case	MSGTY_LOG_FORCED:		{
-			if ( !GUI_isCmdLogVisible( ) )
+			if (!GUI_isCmdLogVisible( ))
 				GUI_showCmdLog();
 			in_log = true;
 			break; }
@@ -411,18 +411,18 @@ void			UserMsg::show				( void )
 			break; }
 
 		default:						{
-			Q_ASSERT( 0 );
+			Q_ASSERT (0);
 			in_log = false;
 			break; }
 		}
 
-		if ( in_log )
+		if (in_log)
 		{
-			GUI_showCmdLogMessage( this );
+			GUI_showCmdLogMessage (this);
 		}
 		else
 		{
-			GUI_showPopUpMessage( this );
+			GUI_showPopUpMessage (this);
 		}
 
 	}
@@ -437,7 +437,7 @@ void			UserMsg::show				( void )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void			UserMsg::exportData			( MsgCacheEntry & outp )
+void			UserMsg::exportData		 (MsgCacheEntry & outp)
 {
 	outp.id_ = id_;
 	outp.msg_ = msg_;
@@ -447,21 +447,21 @@ void			UserMsg::exportData			( MsgCacheEntry & outp )
 
 
 /* ------------------------------------------------------------------------- */
-void			UserMsg::setTypeVisible			( MsgType ty, bool b_viz )
+void			UserMsg::setTypeVisible		 (MsgType ty, bool b_viz)
 {
 	QSettings	stg;
-	if ( (ty >= 0) && (ty < MSG_MAX_TY) )
+	if ((ty >= 0) && (ty < MSG_MAX_TY))
 	{
 		int flg = (1 << ty);
 		if (b_viz)
 		{
-			d_->viz_lst_ = static_cast<MsgVisible>( d_->viz_lst_ | flg );
+			d_->viz_lst_ = static_cast<MsgVisible> (d_->viz_lst_ | flg);
 		}
 		else
 		{
-			d_->viz_lst_ = static_cast<MsgVisible>( d_->viz_lst_ & (~flg) );
+			d_->viz_lst_ = static_cast<MsgVisible> (d_->viz_lst_ & (~flg));
 		}
-		stg.setValue( "stg/msgFilter", d_->viz_lst_ );
+		stg.setValue ("stg/msgFilter", d_->viz_lst_);
 
 	}
 
@@ -469,31 +469,31 @@ void			UserMsg::setTypeVisible			( MsgType ty, bool b_viz )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void			UserMsg::setTypeVisible			( MsgVisible ty )
+void			UserMsg::setTypeVisible		 (MsgVisible ty)
 {
 	QSettings	stg;
-	d_->viz_lst_ = static_cast<MsgVisible>( ty & MVIZ_MAX );
-	stg.setValue( "stg/msgFilter", d_->viz_lst_ );
+	d_->viz_lst_ = static_cast<MsgVisible> (ty & MVIZ_MAX);
+	stg.setValue ("stg/msgFilter", d_->viz_lst_);
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-QString			UserMsg::cacheListToHtml		( const MsgCacheList & c_list )
+QString			UserMsg::cacheListToHtml	 (const MsgCacheList & c_list)
 {
 
 	QString		ret;
 	for ( int i = 0; i < c_list.count(); i++ )
 	{
-		ret += cacheEntryToHtml( c_list.at( i ) );
+		ret += cacheEntryToHtml (c_list.at( i ));
 	}
 	return ret;
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-QString			UserMsg::cacheEntryToHtml		( const MsgCacheEntry & c_entry )
+QString			UserMsg::cacheEntryToHtml	 (const MsgCacheEntry & c_entry)
 {
-	QString		messages = msgListToHtml( c_entry.msg_ );
+	QString		messages = msgListToHtml (c_entry.msg_);
 	QString		ret;
 	if (!messages.isEmpty())
 	{
@@ -501,7 +501,7 @@ QString			UserMsg::cacheEntryToHtml		( const MsgCacheEntry & c_entry )
 		return ret
 				.replace( "##MSGID##", QString::number( c_entry.id_) )
 				.replace( "##TIME##", c_entry.time_.toString() )
-				.replace( "##MESSAGES##", messages );
+				.replace ("##MESSAGES##", messages);
 	}
 
 	return QString();
@@ -509,9 +509,9 @@ QString			UserMsg::cacheEntryToHtml		( const MsgCacheEntry & c_entry )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-QString			UserMsg::toHtml		( void )
+QString			UserMsg::toHtml		()
 {
-	QString		messages = msgListToHtml( msg_ );
+	QString		messages = msgListToHtml (msg_);
 	QString		ret;
 	if (!messages.isEmpty())
 	{
@@ -519,7 +519,7 @@ QString			UserMsg::toHtml		( void )
 		return ret
 				.replace( "##MSGID##", QString::number( id_) )
 				.replace( "##TIME##", QTime::currentTime().toString() )
-				.replace( "##MESSAGES##", messages );
+				.replace ("##MESSAGES##", messages);
 	}
 
 	return QString();
@@ -527,13 +527,13 @@ QString			UserMsg::toHtml		( void )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-QString			UserMsg::msgListToHtml			( const MsgList & m_list )
+QString			UserMsg::msgListToHtml		 (const MsgList & m_list)
 {
 	QString		ret;
 
 	for ( int j = 0; j < m_list.count(); j++ )
 	{
-		ret += msgEntryToHtml( m_list.at( j ) );
+		ret += msgEntryToHtml (m_list.at( j ));
 	}
 
 	return ret;
@@ -541,7 +541,7 @@ QString			UserMsg::msgListToHtml			( const MsgList & m_list )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-QString			UserMsg::msgEntryToHtml			( const MsgEntry & m_entry )
+QString			UserMsg::msgEntryToHtml		 (const MsgEntry & m_entry)
 {
 	if (isTypeVisible(m_entry.type))
 	{
@@ -557,7 +557,7 @@ QString			UserMsg::msgEntryToHtml			( const MsgEntry & m_entry )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void			UserMsg::fatalException			( void )
+void			UserMsg::fatalException			()
 {
 	QMessageBox::warning( NULL,
                          DOTEDITOR_PROJECT_NAME,

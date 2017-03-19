@@ -69,13 +69,13 @@ class DE_EXPORT ImplGVizLib	: public ImplInterf			{
 		/**
 		*	@brief	dump to permanent storage
 		*/
-		void				save			( void );
+		void				save			 ();
 
 
 		/**
 		*	@brief	get from permanent storage
 		*/
-		void				load			( void );
+		void				load			 ();
 
 	};
 
@@ -139,13 +139,13 @@ private:
 	/**
 	*	@brief	constructor;
 	*/
-	ImplGVizLib			( void );
+	ImplGVizLib			 ();
 
 
 	/**
 	*	@brief	destructor;
 	*/
-	~ImplGVizLib		( void );
+	~ImplGVizLib		 ();
 
 
 
@@ -155,7 +155,7 @@ public:
 	/**
 	*	@brief	Get a copy of the list containing top level nodes
 	*/
-	inline QList<GVzNode *>	headNodes			( void )
+	inline QList<GVzNode *>	headNodes			()
 	{ return tl_nodes_; }
 
 
@@ -168,7 +168,7 @@ public:
 	/**
 	*	@brief	Implementation is required to do its thing
 	*/
-	bool				perform					( void );
+	bool				perform					 ();
 
 
 	/**
@@ -183,14 +183,14 @@ public:
 	/**
 	*	@brief	the scene implemented by the implementation
 	*/
-	virtual QGraphicsScene*	scene				( void )
+	virtual QGraphicsScene*	scene				()
 	{ return &img_scene; }
 
 
 	/**
 	*	@brief	associated action
 	*/
-	QAction*			action					( void );
+	QAction*			action					 ();
 
 
 	///@}
@@ -203,7 +203,7 @@ private:
 	/**
 	*	@brief	"Signal" that the settings have changed
 	*/
-	void				applySettings			( void );
+	void				applySettings			 ();
 
 
 
@@ -213,20 +213,20 @@ public:
 	/**
 	*	@brief	use this method to get the singleton (may create it)
 	*/
-	static ImplGVizLib *	unique				( bool b_create = true )
-	{ if ( ( uniq_ == NULL ) && b_create ) new ImplGVizLib(); return uniq_; }
+	static ImplGVizLib *	unique			 (bool b_create = true)
+	{ if (( uniq_ == NULL ) && b_create) new ImplGVizLib(); return uniq_; }
 
 
 	/**
 	*	@brief	tell the settings that govern us
 	*/
-	static Stg			settings				( void );
+	static Stg			settings				 ();
 
 
 	/**
 	*	@brief	change the settings that govern us
 	*/
-	static void			setSettings				( Stg & stg );
+	static void			setSettings				 (Stg & stg);
 
 
 	/*  FUNCTIONS    ======================================================= */

@@ -39,21 +39,21 @@
 /*  CLASS    --------------------------------------------------------------- */
 
 /* ------------------------------------------------------------------------- */
-void				DotViewer::init			( void )
+void				DotViewer::init			()
 {
 	num_scheduled_scalings_ = 0;
-	setDragMode( QGraphicsView::ScrollHandDrag );
+	setDragMode (QGraphicsView::ScrollHandDrag);
 /*
-	setResizeAnchor( QGraphicsView::AnchorViewCenter );
-	setRenderHints( QPainter::Antialiasing | QPainter::SmoothPixmapTransform );
-	setCacheMode( QGraphicsView::CacheBackground );
+	setResizeAnchor (QGraphicsView::AnchorViewCenter);
+	setRenderHints (QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
+	setCacheMode (QGraphicsView::CacheBackground);
 */
 
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-DotViewer::DotViewer		( QWidget *parent )
+DotViewer::DotViewer	 (QWidget *parent)
 	:QGraphicsView( parent )
 {
 	init();
@@ -61,7 +61,7 @@ DotViewer::DotViewer		( QWidget *parent )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-DotViewer::DotViewer		( QGraphicsScene *scene, QWidget *parent )
+DotViewer::DotViewer	 (QGraphicsScene *scene, QWidget *parent)
 	:QGraphicsView( scene, parent )
 {
 	init();
@@ -76,7 +76,7 @@ DotViewer::~DotViewer		()
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void				DotViewer::wheelEvent	( QWheelEvent * event )
+void				DotViewer::wheelEvent (QWheelEvent * event)
 {
 	int numDegrees = event->delta() / 8;
 	int numSteps = numDegrees / 15;  // see QWheelEvent documentation
@@ -99,14 +99,14 @@ void				DotViewer::wheelEvent	( QWheelEvent * event )
 /* ------------------------------------------------------------------------- */
 void				DotViewer::scalingTime	(qreal x)
 {
-	Q_UNUSED( x );
+	Q_UNUSED (x);
 	qreal factor = 1.0 + qreal( num_scheduled_scalings_ ) / 1000.0;
 	scale(factor, factor);
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void				DotViewer::animFinished	( void )
+void				DotViewer::animFinished	()
 {
 	if (num_scheduled_scalings_ > 0)
 		num_scheduled_scalings_--;

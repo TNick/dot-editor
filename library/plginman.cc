@@ -61,7 +61,7 @@ PlgInMan *		PlgInMan::uniq_ = NULL;
 /*  CLASS    --------------------------------------------------------------- */
 
 /* ------------------------------------------------------------------------- */
-QStringList		PlgInMan::startUpSuite		( void )
+QStringList		PlgInMan::startUpSuite		()
 {
 	QSettings	stg;
 	QStringList sl = stg.value( "stg/startUpSuite" ).toStringList();
@@ -71,15 +71,15 @@ QStringList		PlgInMan::startUpSuite		( void )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void			PlgInMan::setStartUpSuite		( QStringList & new_l )
+void			PlgInMan::setStartUpSuite	 (QStringList & new_l)
 {
 	QSettings	stg;
-	stg.setValue( "stg/startUpSuite", new_l );
+	stg.setValue ("stg/startUpSuite", new_l);
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void			PlgInMan::end		( void )
+void			PlgInMan::end		()
 {
 
 	UserMsg		um;
@@ -87,16 +87,16 @@ void			PlgInMan::end		( void )
 	int i = uniq_->plgin_list_.count() - 1;
 	while ( i >= 0)
 	{
-		uniq_->plgin_list_.at( i )->systemClosing( um );
+		uniq_->plgin_list_.at (i )->systemClosing( um);
 		uniq_->lib_list_.at( i )->unload();
-		delete uniq_->lib_list_.at( i );
+		delete uniq_->lib_list_.at (i);
 		i--;
 	}
 
 	uniq_->plgin_list_.clear();
 	uniq_->lib_list_.clear();
 
-	if ( um.count() > 0 )
+	if (um.count() > 0)
 		um.show();
 
 
@@ -107,7 +107,7 @@ void			PlgInMan::end		( void )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void		PlgInMan::init		( void )
+void		PlgInMan::init		()
 {
 	UserMsg		um;
 	QStringList sl = startUpSuite();
@@ -118,10 +118,10 @@ void		PlgInMan::init		( void )
 	QString	s_item;
 	foreach(s_item, sl)	{
 		PlugIn *		out_p;
-		b_ok &= ( OUT_SUCCESS( fromFile( s_item, &out_p, um) ) );
+		b_ok &=  (OUT_SUCCESS( fromFile( s_item, &out_p, um) ));
 	}
 
-	if ( ! b_ok )
+	if (! b_ok)
 	{
 		um.show();
 	}
@@ -130,11 +130,11 @@ void		PlgInMan::init		( void )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-PlugIn*			PlgInMan::plugin			( int i )
+PlugIn*			PlgInMan::plugin		 (int i)
 {
-	if ( i < uniq_->plgin_list_.count( ) )
+	if (i < uniq_->plgin_list_.count( ))
 	{
-		return uniq_->plgin_list_.at( i );
+		return uniq_->plgin_list_.at (i);
 	}
 	return NULL;
 }
@@ -151,10 +151,10 @@ OUTCOME				PlgInMan::fromFile (
 	*out_p = NULL;
 
 	/* attempt to load the library */
-	plg_lib->setFileName( s_file );
-	if ( ! plg_lib->isLoaded() )
+	plg_lib->setFileName (s_file);
+	if (! plg_lib->isLoaded())
 	{
-		if ( ! plg_lib->load() )
+		if (! plg_lib->load())
 		{
 			um.add( UserMsg::MSG_ERROR,	QObject::tr(
 						"Could not load plugin %1.\n%2" )
@@ -164,12 +164,12 @@ OUTCOME				PlgInMan::fromFile (
 			delete plg_lib;
 			return OUTCOME_ERROR;
 		}
-		the_func = (GetPlyGrInterf) plg_lib->resolve( GET_INTERF_FUN_NAME );
-		if ( the_func )
+		the_func = (GetPlyGrInterf) plg_lib->resolve (GET_INTERF_FUN_NAME);
+		if (the_func)
 		{
             static char ver[] = { DOTEDITOR_VERSION_S };
-			PlugIn * ptr_plg = the_func( &ver[ 0 ], um );
-			if ( ptr_plg == NULL )
+			PlugIn * ptr_plg = the_func (&ver[ 0 ], um);
+			if (ptr_plg == NULL)
 			{
 				um.add( UserMsg::MSG_ERROR,	QObject::tr(
 							"The plug-in %1 did not provide an "
@@ -182,13 +182,13 @@ OUTCOME				PlgInMan::fromFile (
 			}
 			else
 			{
-				ptr_plg->setFile( plg_lib->fileName() );
-				if ( ! ptr_plg->initComplete( um ) )
+				ptr_plg->setFile (plg_lib->fileName());
+				if (! ptr_plg->initComplete( um ))
 				{
 					delete ptr_plg;
 				}
 				*out_p = ptr_plg;
-				uniq_->lib_list_.append( plg_lib );
+				uniq_->lib_list_.append (plg_lib);
 				return OUTCOME_OK;
 			}
 		}
@@ -211,17 +211,17 @@ OUTCOME				PlgInMan::fromFile (
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void				PlgInMan::unload	( PlugIn * the_p )
+void				PlgInMan::unload (PlugIn * the_p)
 {
 	if ( the_p == NULL)
 		return;
 
-	int i = uniq_->plgin_list_.indexOf( the_p );
-	if ( i != -1 )
+	int i = uniq_->plgin_list_.indexOf (the_p);
+	if (i != -1)
 	{
-		Q_ASSERT( i < uniq_->lib_list_.count() );
-		uniq_->plgin_list_.removeAt( i );
-		uniq_->lib_list_.removeAt( i );
+		Q_ASSERT (i < uniq_->lib_list_.count());
+		uniq_->plgin_list_.removeAt (i);
+		uniq_->lib_list_.removeAt (i);
 		delete the_p;
 	}
 }
@@ -231,12 +231,12 @@ void				PlgInMan::unload	( PlugIn * the_p )
 OUTCOME				PlgInMan::makeStartUp	(
 		PlugIn * the_p, UserMsg & um  )
 {
-	if ( uniq_->plgin_list_.indexOf( the_p ) == -1 )
+	if (uniq_->plgin_list_.indexOf( the_p ) == -1)
 	{
-		uniq_->plgin_list_.append( the_p );
+		uniq_->plgin_list_.append (the_p);
 	}
 	QString sf = the_p->file();
-	return makeStartUp( sf, um );
+	return makeStartUp (sf, um);
 }
 /* ========================================================================= */
 
@@ -245,7 +245,7 @@ OUTCOME				PlgInMan::remFromStartUp(
 		QString & the_p, UserMsg & um )
 {
 
-	if ( the_p.isEmpty() )
+	if (the_p.isEmpty())
 	{
 		um.add( UserMsg::MSG_ERROR, QObject::tr(
 					"Attempt to remove start-up plug-in but"
@@ -257,10 +257,10 @@ OUTCOME				PlgInMan::remFromStartUp(
 	QStringList sl = startUpSuite();
 	for ( int i = 0; i < sl.count(); i++ )
 	{
-		if ( 0 == sl.at( i ).compare( the_p, Qt::CaseInsensitive ) )
+		if (0 == sl.at( i ).compare( the_p, Qt::CaseInsensitive ))
 		{
-			sl.removeAt( i );
-			setStartUpSuite( sl );
+			sl.removeAt (i);
+			setStartUpSuite (sl);
 			return OUTCOME_OK;
 		}
 	}
@@ -285,11 +285,11 @@ QList<PlgInMan::PlgInInfo> PlgInMan::listPlugIns		(
 	QList<PlgInInfo>	plist;
 	QStringList			st_s = startUpSuite();
 	QString s_def = QCoreApplication::applicationDirPath() + "/plugins";
-	QDir	d( stg.value( "plgin/dir", s_def ).toString() );
-	if ( d.exists() == false )
+	QDir	d (stg.value( "plgin/dir", s_def ).toString());
+	if (d.exists() == false)
 	{
-		d.setPath( s_def );
-		if ( d.exists() == false )
+		d.setPath (s_def);
+		if (d.exists() == false)
 		{
 			s_plg_path = s_def;
 			return plist;
@@ -299,15 +299,15 @@ QList<PlgInMan::PlgInInfo> PlgInMan::listPlugIns		(
 	QFileInfoList		fi_list = d.entryInfoList();
 
 	foreach( fi, fi_list )		{
-		if ( fi.isSymLink() )
+		if (fi.isSymLink())
 			continue;
 		crt_info.s_full_path = fi.absoluteFilePath();
-		if ( QLibrary::isLibrary( crt_info.s_full_path ) )
+		if (QLibrary::isLibrary( crt_info.s_full_path ))
 		{
 			crt_info.b_loaded = false;
 			crt_info.p_interf = NULL;
 			foreach( plgin, uniq_->plgin_list_ )		{
-				if ( plgin->file_ == crt_info.s_full_path )
+				if (plgin->file_ == crt_info.s_full_path)
 				{ /* it is loaded */
 					crt_info.b_loaded = true;
 					crt_info.s_name = plgin->name();
@@ -315,12 +315,12 @@ QList<PlgInMan::PlgInInfo> PlgInMan::listPlugIns		(
 					break;
 				}
 			}
-			if ( crt_info.b_loaded == false )
+			if (crt_info.b_loaded == false)
 			{
 				crt_info.s_name = fi.baseName();
 			}
-			crt_info.b_start_up = st_s.contains( crt_info.s_full_path );
-			plist.append( crt_info );
+			crt_info.b_start_up = st_s.contains (crt_info.s_full_path);
+			plist.append (crt_info);
 		}
 	}
 
@@ -340,7 +340,7 @@ OUTCOME					PlgInMan::syncListPlugIns		(
 	QStringList			st_s;
 
 	foreach( crt_i, lst )		{
-		if ( ( crt_i.b_loaded ) && ( crt_i.p_interf == NULL ) )
+		if (( crt_i.b_loaded ) && ( crt_i.p_interf == NULL ))
 		{ /* load */
 			b_ok &= OUT_SUCCESS( PlgInMan::fromFile(
 						crt_i.s_full_path,
@@ -348,20 +348,20 @@ OUTCOME					PlgInMan::syncListPlugIns		(
 						um
 						) );
 		}
-		else if ( ( crt_i.b_loaded == false ) && ( crt_i.p_interf != NULL ) )
+		else if (( crt_i.b_loaded == false ) && ( crt_i.p_interf != NULL ))
 		{ /* unload */
 			foreach( plgin, uniq_->plgin_list_ )		{
-				if ( plgin->file_ == crt_i.s_full_path )
+				if (plgin->file_ == crt_i.s_full_path)
 				{
-					Q_ASSERT( plgin == crt_i.p_interf );
-					unload( crt_i.p_interf );
+					Q_ASSERT (plgin == crt_i.p_interf);
+					unload (crt_i.p_interf);
 					crt_i.b_loaded = false;
 					crt_i.p_interf = NULL;
 					break;
 				}
 			}
 			/* if we did not found thi one...*/
-			if ( crt_i.b_loaded )
+			if (crt_i.b_loaded)
 			{
 				um.add( UserMsg::MSG_WARNING,	QObject::tr(
 							"Plugin %1 is not loaded!" )
@@ -371,13 +371,13 @@ OUTCOME					PlgInMan::syncListPlugIns		(
 			}
 		}
 
-		if ( crt_i.b_start_up )
+		if (crt_i.b_start_up)
 		{
-			st_s.append( crt_i.s_full_path );
+			st_s.append (crt_i.s_full_path);
 		}
 	}
-	setStartUpSuite( st_s );
-	if ( b_ok )
+	setStartUpSuite (st_s);
+	if (b_ok)
 		return b_var;
 	else
 		return OUTCOME_ERROR;
@@ -390,7 +390,7 @@ OUTCOME					PlgInMan::makeStartUp			(
 		QString & the_p, UserMsg & um )
 {
 
-	if ( the_p.isEmpty() )
+	if (the_p.isEmpty())
 	{
 		um.add( UserMsg::MSG_ERROR, QObject::tr(
 					"Attempt to make start-up plug-in but"
@@ -399,8 +399,8 @@ OUTCOME					PlgInMan::makeStartUp			(
 		return OUTCOME_ERROR;
 	}
 
-	QFile	s_file( the_p );
-	if ( ! s_file.exists() )
+	QFile	s_file (the_p);
+	if (! s_file.exists())
 	{
 		um.add( UserMsg::MSG_ERROR, QObject::tr(
 					"Attempt to make start-up plug-in with "
@@ -413,8 +413,8 @@ OUTCOME					PlgInMan::makeStartUp			(
 	QStringList sl = startUpSuite();
 	for ( int i = 0; i < sl.count(); i++ )
 	{
-		QFile	s_file_c( sl.at( i ) );
-		if ( s_file.fileName() == s_file_c.fileName() )
+		QFile	s_file_c (sl.at( i ));
+		if (s_file.fileName() == s_file_c.fileName())
 		{
 			um.add( UserMsg::MSG_WARNING, QObject::tr(
 						"Attempt to make start-up plug-in with "
@@ -425,8 +425,8 @@ OUTCOME					PlgInMan::makeStartUp			(
 		}
 	}
 
-	sl.append( the_p );
-	setStartUpSuite( sl );
+	sl.append (the_p);
+	setStartUpSuite (sl);
 
 	return OUTCOME_OK;
 }

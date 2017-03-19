@@ -75,18 +75,18 @@ public:
 	/**
 	*	@brief	the text in application's editor
 	*/
-	static QWidget *				mainGui				( void );
+	static QWidget *				mainGui				 ();
 
 	/**
 	*	@brief	the text in application's editor
 	*/
-	static QString					editorText			( void );
+	static QString					editorText			 ();
 
 
 	/**
 	*	@brief	the graphics display
 	*/
-	static QGraphicsView *			graphicWidget		( void );
+	static QGraphicsView *			graphicWidget		 ();
 
 
 	/**
@@ -100,7 +100,7 @@ public:
 	/**
 	*	@brief	get current implementation
 	*/
-	static ImplInterf *				implem			( void );
+	static ImplInterf *				implem			 ();
 
 
 	/**

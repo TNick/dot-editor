@@ -115,7 +115,7 @@ GVzNode::GVzNode	(
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-GVzNode::~GVzNode	( void )
+GVzNode::~GVzNode	()
 {
 	edg_l_.clear();
 }
@@ -123,13 +123,13 @@ GVzNode::~GVzNode	( void )
 
 
 /* ------------------------------------------------------------------------- */
-QString					GVzNode::label						( void ) const
+QString					GVzNode::label						() const
 {
-	if ( dot_n_ == NULL )
+	if (dot_n_ == NULL)
 		return QString();
 
-	textlabel_t * tl = ND_label( dot_n_ );
-	if ( tl == NULL )
+	textlabel_t * tl = ND_label (dot_n_);
+	if (tl == NULL)
 		return QString();
 
 	return tl->text;
@@ -137,7 +137,7 @@ QString					GVzNode::label						( void ) const
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-QRectF					GVzNode::boundingRect		( void ) const
+QRectF					GVzNode::boundingRect		() const
 {
 	qreal penWidth = 1;
 	qreal	w = ND_width( dot_n_ ) * 72;
@@ -153,7 +153,7 @@ QRectF					GVzNode::boundingRect		( void ) const
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void					octogonInRect		( QRectF & r, QPointF * pts )
+void					octogonInRect	 (QRectF & r, QPointF * pts)
 {
 	/* 9 POINTS EXPECTED */
 
@@ -162,14 +162,14 @@ void					octogonInRect		( QRectF & r, QPointF * pts )
 	qreal x_2_3 = x_3 * 2;
 	qreal y_2_3 = y_3 * 2;
 
-	pts[0].setX( r.left() );			pts[0].setY( r.top() + y_3 );
-	pts[1].setX( r.left() + x_3 );		pts[1].setY( r.top() );
-	pts[2].setX( r.left() + x_2_3 );	pts[2].setY( r.top() );
-	pts[3].setX( r.right() );			pts[3].setY( r.top() + y_3 );
-	pts[4].setX( r.right() );			pts[4].setY( r.top() + y_2_3 );
-	pts[5].setX( r.left() + x_2_3 );	pts[5].setY( r.bottom() );
-	pts[6].setX( r.left() + x_3 );		pts[6].setY( r.bottom() );
-	pts[7].setX( r.left() );			pts[7].setY( r.top() + y_2_3 );
+	pts[0].setX (r.left() );			pts[0].setY( r.top() + y_3);
+	pts[1].setX (r.left() + x_3 );		pts[1].setY( r.top());
+	pts[2].setX (r.left() + x_2_3 );	pts[2].setY( r.top());
+	pts[3].setX (r.right() );			pts[3].setY( r.top() + y_3);
+	pts[4].setX (r.right() );			pts[4].setY( r.top() + y_2_3);
+	pts[5].setX (r.left() + x_2_3 );	pts[5].setY( r.bottom());
+	pts[6].setX (r.left() + x_3 );		pts[6].setY( r.bottom());
+	pts[7].setX (r.left() );			pts[7].setY( r.top() + y_2_3);
 	pts[8] = pts[0];
 
 }
@@ -182,51 +182,51 @@ void					GVzNode::paint(
 		QPainter * painter, const QStyleOptionGraphicsItem * option,
 		QWidget * widget )
 {
-	Q_UNUSED( option );
-	Q_UNUSED( widget );
+	Q_UNUSED (option);
+	Q_UNUSED (widget);
 	QPointF	pts[16];
 	QRectF	bb2;
 	qreal	a;
 
-	if ( dot_n_ == NULL )
+	if (dot_n_ == NULL)
 		return;
 
-	Agsym_t * atr_clr = q_agfindattr( dot_n_, "color" );
-	Agsym_t * atr_fillclr = q_agfindattr( dot_n_, "fillcolor" );
-	Agsym_t * atr_bgcolor = q_agfindattr( dot_n_, "bgcolor" );
-	Agsym_t * atr_style = q_agfindattr( dot_n_, "style" );
-	//	Agsym_t * atr_fontcolor = q_agfindattr( dot_n_, "fontcolor" );
-	//	Agsym_t * atr_fontname = q_agfindattr( dot_n_, "fontname" );
-	//	Agsym_t * atr_fontsize = q_agfindattr( dot_n_, "fontsize" );
-	//	Agsym_t * atr_label = q_agfindattr( dot_n_, "label" );
+	Agsym_t * atr_clr = q_agfindattr (dot_n_, "color");
+	Agsym_t * atr_fillclr = q_agfindattr (dot_n_, "fillcolor");
+	Agsym_t * atr_bgcolor = q_agfindattr (dot_n_, "bgcolor");
+	Agsym_t * atr_style = q_agfindattr (dot_n_, "style");
+	//	Agsym_t * atr_fontcolor = q_agfindattr (dot_n_, "fontcolor");
+	//	Agsym_t * atr_fontname = q_agfindattr (dot_n_, "fontname");
+	//	Agsym_t * atr_fontsize = q_agfindattr (dot_n_, "fontsize");
+	//	Agsym_t * atr_label = q_agfindattr (dot_n_, "label");
 
 	char * vl;
-	if ( atr_clr != NULL ){
-		vl = agxget( dot_n_, atr_clr->index );
-		painter->setPen( QColor( vl ).toRgb() );
+	if (atr_clr != NULL){
+		vl = agxget (dot_n_, atr_clr->index);
+		painter->setPen (QColor( vl ).toRgb());
 	}
-	if ( atr_fillclr != NULL ){
+	if (atr_fillclr != NULL){
 		QBrush	brs;
-		vl = agxget( dot_n_, atr_fillclr->index );
-		brs.setColor( QColor( vl ) );
-		brs.setStyle( Qt:: SolidPattern );
-		painter->setBrush( brs );
+		vl = agxget (dot_n_, atr_fillclr->index);
+		brs.setColor (QColor( vl ));
+		brs.setStyle (Qt:: SolidPattern);
+		painter->setBrush (brs);
 	}
-	if ( atr_bgcolor != NULL ){
+	if (atr_bgcolor != NULL){
 		/* ? where to use this? */
-		vl = agxget( dot_n_, atr_bgcolor->index );
+		vl = agxget (dot_n_, atr_bgcolor->index);
 	}
-	if ( atr_style != NULL ){
+	if (atr_style != NULL){
 		/* ? where to use this? */
-		vl = agxget( dot_n_, atr_style->index );
+		vl = agxget (dot_n_, atr_style->index);
 	}
 
 
 	QRectF	bb = boundingRect();
-	if ( isHighlited() )
+	if (isHighlited())
 	{
-		painter->setPen( QColor( Qt::red ) );
-		painter->setBrush( QBrush( QColor( 0x00, 0xf5, 0xf5, 0x50 ) ) );
+		painter->setPen (QColor( Qt::red ));
+		painter->setBrush (QBrush( QColor( 0x00, 0xf5, 0xf5, 0x50 ) ));
 	}
 
 	/* draw based on provided shape */
@@ -235,7 +235,7 @@ void					GVzNode::paint(
 	case	SHP_RECTANGLE:
 	case	SHP_SQUARE:
 	case	SHP_BOX:
-		painter->drawRect( bb );
+		painter->drawRect (bb);
 		break;
 	case	SHP_NONE:
 		break;
@@ -243,184 +243,184 @@ void					GVzNode::paint(
 	case	SHP_MCIRCLE:		{
 		a = bb.height() / 8;
 		bb2 = bb.adjusted( a, a, -a, -a);
-		painter->drawEllipse( bb );
-		painter->drawRect( bb2 );
+		painter->drawEllipse (bb);
+		painter->drawRect (bb2);
 		break;}
 
 	case	SHP_MDIAMOND:
 	case	SHP_MSQUARE:		{
-		painter->drawRect( bb );
+		painter->drawRect (bb);
 
-		pts[0].setX( bb.left() );		pts[0].setY( bb.top()+bb.height()/2 );
-		pts[1].setX( bb.left()+bb.width()/2 );	pts[1].setY( bb.top() );
-		pts[2].setX( bb.right() );		pts[2].setY( pts[0].y() );
-		pts[3].setX( pts[1].x() );		pts[3].setY( bb.bottom() );
-		painter->drawConvexPolygon( &pts[0], 4 );
+		pts[0].setX (bb.left() );		pts[0].setY( bb.top()+bb.height()/2);
+		pts[1].setX (bb.left()+bb.width()/2 );	pts[1].setY( bb.top());
+		pts[2].setX (bb.right() );		pts[2].setY( pts[0].y());
+		pts[3].setX (pts[1].x() );		pts[3].setY( bb.bottom());
+		painter->drawConvexPolygon (&pts[0], 4);
 		break;}
 
 	case	SHP_CIRCLE:
 	case	SHP_ELLIPSE:
 	case	SHP_OVAL:
 	case	SHP_EGG:
-		painter->drawEllipse( bb );
+		painter->drawEllipse (bb);
 		break;
 
 	case	SHP_DOUBLECIRCLE:	{
 		a = 2;//bb.width() / 10;
 		bb2 = bb.adjusted( a, a, -a, -a);
-		painter->drawEllipse( bb );
-		painter->drawEllipse( bb2 );
+		painter->drawEllipse (bb);
+		painter->drawEllipse (bb2);
 		break;}
 
 	case	SHP_BOX3D:			{
 		a = bb.width() / 8;
 
-		bb2 = bb.adjusted( 0, a, -a, 0 );
-		painter->drawRect( bb2 );
+		bb2 = bb.adjusted (0, a, -a, 0);
+		painter->drawRect (bb2);
 
-		pts[0].setX( bb2.left() );		pts[0].setY( bb2.top() );
-		pts[1].setX( bb2.left()+a );	pts[1].setY( bb.top() );
-		pts[2].setX( bb.right() );		pts[2].setY( bb.top() );
-		pts[3].setX( bb.right() );		pts[3].setY( bb2.bottom()-a );
-		pts[4].setX( bb2.right() );		pts[4].setY( bb2.bottom() );
-		painter->drawPolyline( &pts[0], 5 );
+		pts[0].setX (bb2.left() );		pts[0].setY( bb2.top());
+		pts[1].setX (bb2.left()+a );	pts[1].setY( bb.top());
+		pts[2].setX (bb.right() );		pts[2].setY( bb.top());
+		pts[3].setX (bb.right() );		pts[3].setY( bb2.bottom()-a);
+		pts[4].setX (bb2.right() );		pts[4].setY( bb2.bottom());
+		painter->drawPolyline (&pts[0], 5);
 
-		painter->drawLine( pts[2], bb2.topRight() );
+		painter->drawLine (pts[2], bb2.topRight());
 		break;}
 
 	case	SHP_COMPONENT:		{
 		a = bb.width() / 12;
 
-		bb2 = bb.adjusted( a, 0, 0, 0 );
-		painter->drawRect( bb2 );
+		bb2 = bb.adjusted (a, 0, 0, 0);
+		painter->drawRect (bb2);
 
-		bb2 = QRectF( bb.left(), bb.top()+a, a*2, a );
-		painter->drawRect( bb2 );
+		bb2 = QRectF (bb.left(), bb.top()+a, a*2, a);
+		painter->drawRect (bb2);
 
-		bb2.translate( 0, bb.height() - a*3 );
-		painter->drawRect( bb2 );
+		bb2.translate (0, bb.height() - a*3);
+		painter->drawRect (bb2);
 
 
 		break;}
 
 	case	SHP_DIAMOND:		{
-		pts[0].setX( bb.left() );		pts[0].setY( bb.top()+bb.height()/2 );
-		pts[1].setX( bb.left()+bb.width()/2 );	pts[1].setY( bb.top() );
-		pts[2].setX( bb.right() );		pts[2].setY( pts[0].y() );
-		pts[3].setX( pts[1].x() );		pts[3].setY( bb.bottom() );
-		painter->drawConvexPolygon( &pts[0], 4 );
+		pts[0].setX (bb.left() );		pts[0].setY( bb.top()+bb.height()/2);
+		pts[1].setX (bb.left()+bb.width()/2 );	pts[1].setY( bb.top());
+		pts[2].setX (bb.right() );		pts[2].setY( pts[0].y());
+		pts[3].setX (pts[1].x() );		pts[3].setY( bb.bottom());
+		painter->drawConvexPolygon (&pts[0], 4);
 		break;}
 
 	case	SHP_TRIPLEOCTAGON:	{
 		a = bb.height() / 16;
-		bb2 = bb.adjusted( a, a, -a, -a );
-		octogonInRect( bb, &pts[0] );
-		painter->drawPolyline( &pts[0], 9 );
-		octogonInRect( bb2, &pts[0] );
-		painter->drawPolyline( &pts[0], 9 );
-		bb2 = bb2.adjusted( a, a, -a, -a );
-		octogonInRect( bb2, &pts[0] );
-		painter->drawConvexPolygon( &pts[0], 8 );
+		bb2 = bb.adjusted (a, a, -a, -a);
+		octogonInRect (bb, &pts[0]);
+		painter->drawPolyline (&pts[0], 9);
+		octogonInRect (bb2, &pts[0]);
+		painter->drawPolyline (&pts[0], 9);
+		bb2 = bb2.adjusted (a, a, -a, -a);
+		octogonInRect (bb2, &pts[0]);
+		painter->drawConvexPolygon (&pts[0], 8);
 		break;}
 
 
 	case	SHP_DOUBLEOCTAGON:	{
 		a = bb.height() / 16;
-		bb2 = bb.adjusted( a, a, -a, -a );
-		octogonInRect( bb, &pts[0] );
-		painter->drawPolyline( &pts[0], 9 );
-		octogonInRect( bb2, &pts[0] );
-		painter->drawConvexPolygon( &pts[0], 8 );
+		bb2 = bb.adjusted (a, a, -a, -a);
+		octogonInRect (bb, &pts[0]);
+		painter->drawPolyline (&pts[0], 9);
+		octogonInRect (bb2, &pts[0]);
+		painter->drawConvexPolygon (&pts[0], 8);
 		break;}
 
 	case	SHP_OCTAGON:	{
-		octogonInRect( bb, &pts[0] );
-		painter->drawConvexPolygon( &pts[0], 8 );
+		octogonInRect (bb, &pts[0]);
+		painter->drawConvexPolygon (&pts[0], 8);
 		break;}
 
 	case	SHP_HEXAGON:	{
 		a = bb.height() / 2;
-		pts[0].setX( bb.left() );		pts[0].setY( bb.top()+a );
-		pts[1].setX( bb.left()+a );		pts[1].setY( bb.top() );
-		pts[2].setX( bb.right()-a );	pts[2].setY( bb.top() );
-		pts[3].setX( bb.right() );		pts[3].setY( bb.top()+a );
-		pts[4].setX( bb.right()-a );	pts[4].setY( bb.bottom() );
-		pts[5].setX( bb.left()+a );		pts[5].setY( bb.bottom() );
+		pts[0].setX (bb.left() );		pts[0].setY( bb.top()+a);
+		pts[1].setX (bb.left()+a );		pts[1].setY( bb.top());
+		pts[2].setX (bb.right()-a );	pts[2].setY( bb.top());
+		pts[3].setX (bb.right() );		pts[3].setY( bb.top()+a);
+		pts[4].setX (bb.right()-a );	pts[4].setY( bb.bottom());
+		pts[5].setX (bb.left()+a );		pts[5].setY( bb.bottom());
 
-		painter->drawConvexPolygon( &pts[0], 6 );
+		painter->drawConvexPolygon (&pts[0], 6);
 		break;}
 
 	case	SHP_HOUSE:		{
 		a = bb.height() / 3;
-		pts[0].setX( bb.left() );		pts[0].setY( bb.top()+a );
-		pts[1].setX( bb.left()+bb.width()/2 );	pts[1].setY( bb.top() );
-		pts[2].setX( bb.right() );		pts[2].setY( bb.top()+a );
-		pts[3].setX( bb.right() );		pts[3].setY( bb.bottom() );
-		pts[4].setX( bb.left() );		pts[4].setY( bb.bottom() );
+		pts[0].setX (bb.left() );		pts[0].setY( bb.top()+a);
+		pts[1].setX (bb.left()+bb.width()/2 );	pts[1].setY( bb.top());
+		pts[2].setX (bb.right() );		pts[2].setY( bb.top()+a);
+		pts[3].setX (bb.right() );		pts[3].setY( bb.bottom());
+		pts[4].setX (bb.left() );		pts[4].setY( bb.bottom());
 
-		painter->drawConvexPolygon( &pts[0], 5 );
+		painter->drawConvexPolygon (&pts[0], 5);
 		break;}
 
 	case	SHP_INVHOUSE:		{
 		a = bb.height() / 3;
-		pts[0].setX( bb.left() );		pts[0].setY( bb.bottom()-a );
-		pts[1].setX( bb.left()+bb.width()/2 );	pts[1].setY( bb.bottom() );
-		pts[2].setX( bb.right() );		pts[2].setY( bb.bottom()-a );
-		pts[3].setX( bb.right() );		pts[3].setY( bb.top() );
-		pts[4].setX( bb.left() );		pts[4].setY( bb.top() );
+		pts[0].setX (bb.left() );		pts[0].setY( bb.bottom()-a);
+		pts[1].setX (bb.left()+bb.width()/2 );	pts[1].setY( bb.bottom());
+		pts[2].setX (bb.right() );		pts[2].setY( bb.bottom()-a);
+		pts[3].setX (bb.right() );		pts[3].setY( bb.top());
+		pts[4].setX (bb.left() );		pts[4].setY( bb.top());
 
-		painter->drawConvexPolygon( &pts[0], 5 );
+		painter->drawConvexPolygon (&pts[0], 5);
 		break;}
 
 	case	SHP_TRIANGLE:		{
-		pts[0].setX( bb.left() );				pts[0].setY( bb.bottom() );
-		pts[1].setX( bb.left()+bb.width()/2 );	pts[1].setY( bb.top() );
-		pts[2].setX( bb.right() );				pts[2].setY( bb.bottom() );
+		pts[0].setX (bb.left() );				pts[0].setY( bb.bottom());
+		pts[1].setX (bb.left()+bb.width()/2 );	pts[1].setY( bb.top());
+		pts[2].setX (bb.right() );				pts[2].setY( bb.bottom());
 
-		painter->drawConvexPolygon( &pts[0], 3 );
+		painter->drawConvexPolygon (&pts[0], 3);
 		break;}
 
 	case	SHP_INVTRIANGLE:		{
-		pts[0].setX( bb.left() );				pts[0].setY( bb.top() );
-		pts[1].setX( bb.left()+bb.width()/2 );	pts[1].setY( bb.bottom() );
-		pts[2].setX( bb.right() );				pts[2].setY( bb.top() );
+		pts[0].setX (bb.left() );				pts[0].setY( bb.top());
+		pts[1].setX (bb.left()+bb.width()/2 );	pts[1].setY( bb.bottom());
+		pts[2].setX (bb.right() );				pts[2].setY( bb.top());
 
-		painter->drawConvexPolygon( &pts[0], 3 );
+		painter->drawConvexPolygon (&pts[0], 3);
 		break;}
 
 	case	SHP_TRAPEZIUM:			{
 		a = bb.width() / 8;
-		pts[0].setX( bb.left() );				pts[0].setY( bb.bottom() );
-		pts[1].setX( bb.left()+a );				pts[1].setY( bb.top() );
-		pts[2].setX( bb.right()-a );			pts[2].setY( bb.top() );
-		pts[3].setX( bb.right() );				pts[3].setY( bb.bottom() );
+		pts[0].setX (bb.left() );				pts[0].setY( bb.bottom());
+		pts[1].setX (bb.left()+a );				pts[1].setY( bb.top());
+		pts[2].setX (bb.right()-a );			pts[2].setY( bb.top());
+		pts[3].setX (bb.right() );				pts[3].setY( bb.bottom());
 		pts[4] = pts[0];
 
-		painter->drawConvexPolygon( &pts[0], 4 );
+		painter->drawConvexPolygon (&pts[0], 4);
 		break;}
 
 	case	SHP_INVTRAPEZIUM:		{
 		a = bb.width() / 8;
-		pts[0].setX( bb.left() );				pts[0].setY( bb.top() );
-		pts[1].setX( bb.left()+a );				pts[1].setY( bb.bottom() );
-		pts[2].setX( bb.right()-a );			pts[2].setY( bb.bottom() );
-		pts[3].setX( bb.right() );				pts[3].setY( bb.top() );
+		pts[0].setX (bb.left() );				pts[0].setY( bb.top());
+		pts[1].setX (bb.left()+a );				pts[1].setY( bb.bottom());
+		pts[2].setX (bb.right()-a );			pts[2].setY( bb.bottom());
+		pts[3].setX (bb.right() );				pts[3].setY( bb.top());
 
-		painter->drawConvexPolygon( &pts[0], 4 );
+		painter->drawConvexPolygon (&pts[0], 4);
 		break;}
 
 	case	SHP_NOTE:			{
 		a = bb.width() / 8;
-		pts[0].setX( bb.left() );				pts[0].setY( bb.top() );
-		pts[1].setX( bb.right()-a );			pts[1].setY( bb.top() );
-		pts[2].setX( bb.right() );				pts[2].setY( bb.top()+a );
-		pts[3].setX( bb.right() );				pts[3].setY( bb.bottom() );
-		pts[4].setX( bb.left() );				pts[4].setY( bb.bottom() );
+		pts[0].setX (bb.left() );				pts[0].setY( bb.top());
+		pts[1].setX (bb.right()-a );			pts[1].setY( bb.top());
+		pts[2].setX (bb.right() );				pts[2].setY( bb.top()+a);
+		pts[3].setX (bb.right() );				pts[3].setY( bb.bottom());
+		pts[4].setX (bb.left() );				pts[4].setY( bb.bottom());
 
-		painter->drawConvexPolygon( &pts[0], 5 );
+		painter->drawConvexPolygon (&pts[0], 5);
 		pts[3] = pts[2];
-		pts[2].setX( pts[1].x() ); /* y already == to 3.y) */
-		painter->drawPolyline( &pts[1], 3 );
+		pts[2].setX (pts[1].x()); /* y already == to 3.y) */
+		painter->drawPolyline (&pts[1], 3);
 
 		break;}
 
@@ -429,12 +429,12 @@ void					GVzNode::paint(
 
 	case	SHP_PARALLELOGRAM:	{
 		a = bb.width() / 8;
-		pts[0].setX( bb.left() );				pts[0].setY( bb.bottom() );
-		pts[1].setX( bb.left()+a );				pts[1].setY( bb.top() );
-		pts[2].setX( bb.right() );				pts[2].setY( bb.top() );
-		pts[3].setX( bb.right()-a );			pts[3].setY( bb.bottom() );
+		pts[0].setX (bb.left() );				pts[0].setY( bb.bottom());
+		pts[1].setX (bb.left()+a );				pts[1].setY( bb.top());
+		pts[2].setX (bb.right() );				pts[2].setY( bb.top());
+		pts[3].setX (bb.right()-a );			pts[3].setY( bb.bottom());
 
-		painter->drawConvexPolygon( &pts[0], 4 );
+		painter->drawConvexPolygon (&pts[0], 4);
 		break;}
 
 
@@ -443,61 +443,61 @@ void					GVzNode::paint(
 		qreal a_1_3 = bb.height() / 3;
 		qreal a_2_3 = a_1_3 * 2;
 
-		pts[0].setX( bb.left() );				pts[0].setY( bb.top()+a_2_3 );
-		pts[1].setX( bb.left()+a_1_3/2 );		pts[1].setY( bb.top()+a_1_3/2 );
-		pts[2].setX( bb.left()+bb.width()/2 );	pts[2].setY( bb.top() );
-		pts[3].setX( bb.right()-a_1_3/2 );		pts[3].setY( pts[1].y() );
-		pts[4].setX( bb.right() );				pts[4].setY( pts[0].y() );
-		pts[5].setX( bb.right()-a_1_3 );		pts[5].setY( bb.bottom() );
-		pts[6].setX( bb.left()+a_1_3 );			pts[6].setY( bb.bottom() );
+		pts[0].setX (bb.left() );				pts[0].setY( bb.top()+a_2_3);
+		pts[1].setX (bb.left()+a_1_3/2 );		pts[1].setY( bb.top()+a_1_3/2);
+		pts[2].setX (bb.left()+bb.width()/2 );	pts[2].setY( bb.top());
+		pts[3].setX (bb.right()-a_1_3/2 );		pts[3].setY( pts[1].y());
+		pts[4].setX (bb.right() );				pts[4].setY( pts[0].y());
+		pts[5].setX (bb.right()-a_1_3 );		pts[5].setY( bb.bottom());
+		pts[6].setX (bb.left()+a_1_3 );			pts[6].setY( bb.bottom());
 
-		painter->drawConvexPolygon( &pts[0], 7 );
+		painter->drawConvexPolygon (&pts[0], 7);
 		break;}
 
 	case	SHP_POINT:			{
-		painter->drawEllipse( bb );
+		painter->drawEllipse (bb);
 		break;}
 
 	case	SHP_PENTAGON:		{
 		a = bb.height() / 3;
 
-		pts[0].setX( bb.left() );				pts[0].setY( bb.top()+a );
-		pts[1].setX( bb.left()+bb.width()/2 );	pts[1].setY( bb.top() );
-		pts[2].setX( bb.right() );				pts[2].setY( bb.top()+a );
-		pts[3].setX( bb.right()-a );			pts[3].setY( bb.bottom() );
-		pts[4].setX( bb.left()+a );				pts[4].setY( bb.bottom() );
+		pts[0].setX (bb.left() );				pts[0].setY( bb.top()+a);
+		pts[1].setX (bb.left()+bb.width()/2 );	pts[1].setY( bb.top());
+		pts[2].setX (bb.right() );				pts[2].setY( bb.top()+a);
+		pts[3].setX (bb.right()-a );			pts[3].setY( bb.bottom());
+		pts[4].setX (bb.left()+a );				pts[4].setY( bb.bottom());
 
-		painter->drawConvexPolygon( &pts[0], 5 );
+		painter->drawConvexPolygon (&pts[0], 5);
 		break;}
 
 	case	SHP_FOLDER:			{
 		qreal a = bb.width() / 8;
-		QRectF	bb2( bb.right()-a*2, bb.top(), a*2, a );
-		painter->drawRect( bb );
-		painter->drawRect( bb2 );
+		QRectF	bb2 (bb.right()-a*2, bb.top(), a*2, a);
+		painter->drawRect (bb);
+		painter->drawRect (bb2);
 
 		break;}
 
 	case	SHP_TAB:			{
 		qreal a = bb.width() / 8;
 
-		QRectF	bb2( bb.left(), bb.top(), a*2, a );
-		painter->drawRect( bb );
-		painter->drawRect( bb2 );
+		QRectF	bb2 (bb.left(), bb.top(), a*2, a);
+		painter->drawRect (bb);
+		painter->drawRect (bb2);
 		break;}
 
 	default:
-		painter->drawRoundedRect( bb, 5, 5 );
+		painter->drawRoundedRect (bb, 5, 5);
 	}
 
 
 
 
 	/* the label */
-	textlabel_t * tl = ND_label( dot_n_ );
+	textlabel_t * tl = ND_label (dot_n_);
 	QString lbl = tl->text;
 
-	if ( tl->html )
+	if (tl->html)
 	{
 		/** @todo	html rendering */
 	}
@@ -505,19 +505,19 @@ void					GVzNode::paint(
 	{
 	}
 
-	if ( lbl.isEmpty() == false )
+	if (lbl.isEmpty() == false)
 	{
 
-		painter->setPen( QColor( tl->fontcolor ).toRgb() );
+		painter->setPen (QColor( tl->fontcolor ).toRgb());
 
 		QFont f = painter->font();
-		f.setFamily( tl->fontname );
-		f.setPointSize( tl->fontsize );
-		painter->setFont( f );
+		f.setFamily (tl->fontname);
+		f.setPointSize (tl->fontsize);
+		painter->setFont (f);
 
 
 		QTextOption	to;
-		to.setWrapMode( QTextOption::WordWrap );
+		to.setWrapMode (QTextOption::WordWrap);
 		Qt::AlignmentFlag align;
 		switch ( tl->valign )	{
 		case	't':
@@ -530,41 +530,41 @@ void					GVzNode::paint(
 			align = Qt::AlignVCenter;
 		}
 		/* stuuuuuupid */
-		align = (Qt::AlignmentFlag)( 0x0004 | align );
-		to.setAlignment( align );
+		align = (Qt::AlignmentFlag) (0x0004 | align);
+		to.setAlignment (align);
 
-		lbl.replace( "\\N", "\n", Qt::CaseInsensitive );
-		lbl.replace( "\\T", "\t", Qt::CaseInsensitive );
-		lbl.replace( "\\R", "\r", Qt::CaseInsensitive );
-		lbl.replace( "\\\\", "\\" );
+		lbl.replace ("\\N", "\n", Qt::CaseInsensitive);
+		lbl.replace ("\\T", "\t", Qt::CaseInsensitive);
+		lbl.replace ("\\R", "\r", Qt::CaseInsensitive);
+		lbl.replace ("\\\\", "\\");
 
-		painter->drawText( bb, lbl, to );
+		painter->drawText (bb, lbl, to);
 
 	}
 
 
-	//	if ( atr_label != NULL ){
+	//	if (atr_label != NULL){
 
-	//		vl = agxget( dot_n_, atr_label->index );
+	//		vl = agxget (dot_n_, atr_label->index);
 
-	//		if ( atr_fontcolor != NULL ){
-	//			vl = agxget( dot_n_, atr_fontcolor->index );
-	//			painter->setPen( QColor( vl ).toRgb() );
+	//		if (atr_fontcolor != NULL){
+	//			vl = agxget (dot_n_, atr_fontcolor->index);
+	//			painter->setPen (QColor( vl ).toRgb());
 	//		}
-	//		if ( atr_fontname != NULL ){
-	//			vl = agxget( dot_n_, atr_fontname->index );
+	//		if (atr_fontname != NULL){
+	//			vl = agxget (dot_n_, atr_fontname->index);
 	//			QFont f = painter->font();
-	//			f.setFamily( vl );
-	//			painter->setFont( f );
+	//			f.setFamily (vl);
+	//			painter->setFont (f);
 	//		}
-	//		if ( atr_fontsize != NULL ){
-	//			vl = agxget( dot_n_, atr_fontsize->index );
+	//		if (atr_fontsize != NULL){
+	//			vl = agxget (dot_n_, atr_fontsize->index);
 	//			QFont f = painter->font();
-	//			a = QString( vl ).toDouble( &b_ok );
-	//			if ( b_ok && ( a > 1 ) )
+	//			a = QString (vl ).toDouble( &b_ok);
+	//			if (b_ok && ( a > 1 ))
 	//			{
-	//				f.setPointSize( a );
-	//				painter->setFont( f );
+	//				f.setPointSize (a);
+	//				painter->setFont (f);
 	//			}
 	//		}
 
@@ -573,35 +573,35 @@ void					GVzNode::paint(
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void					GVzNode::updateCachedData			( void )
+void					GVzNode::updateCachedData			()
 {
-	if ( dot_n_ == NULL )
+	if (dot_n_ == NULL)
 		return;
 
 	/* position */
-	pointf center = ND_coord( dot_n_ );
-	setPos( center.x, -center.y );
+	pointf center = ND_coord (dot_n_);
+	setPos (center.x, -center.y);
 
 	/* shape */
-	shape_desc * shp = ND_shape( dot_n_ );
+	shape_desc * shp = ND_shape (dot_n_);
 	shp_ = SHP_UDEF;
-	if ( shp->usershape == false )
+	if (shp->usershape == false)
 	{
 		int i;
 		int j;
 		for ( i = 0; ; i++ )
 		{
-			if ( shape_names[i] == NULL )
+			if (shape_names[i] == NULL)
 			{
 				break;
 			}
-			j = strcmp( shape_names[i], shp->name );
-			if ( j == 0 )
+			j = strcmp (shape_names[i], shp->name);
+			if (j == 0)
 			{
 				shp_ = (NdShape)i;
 				break;
 			}
-			else if ( j > 0 )
+			else if (j > 0)
 			{
 				break;
 			}
@@ -612,15 +612,15 @@ void					GVzNode::updateCachedData			( void )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-QList<GVzNode*>			GVzNode::nodes					( void ) const
+QList<GVzNode*>			GVzNode::nodes					() const
 {
 	QList<GVzNode*>	l_nodes;
 	GVzEdge *  edg;
 	foreach( edg, edg_l_ )	{
 		GVzNode * nd = edg->destination();
-		if ( nd != NULL )
+		if (nd != NULL)
 		{
-			l_nodes.append( nd );
+			l_nodes.append (nd);
 		}
 	}
 	return l_nodes;
@@ -628,15 +628,15 @@ QList<GVzNode*>			GVzNode::nodes					( void ) const
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void					GVzNode::setHighlite			( bool b_sts )
+void					GVzNode::setHighlite		 (bool b_sts)
 {
-	if ( b_sts )
+	if (b_sts)
 	{
-		st_lst_ = (States)( st_lst_ | ST_HIGHLITE );
+		st_lst_ = (States) (st_lst_ | ST_HIGHLITE);
 	}
 	else
 	{
-		st_lst_ = (States)( st_lst_ & (~ST_HIGHLITE) );
+		st_lst_ = (States) (st_lst_ & (~ST_HIGHLITE));
 	}
 	update();
 }

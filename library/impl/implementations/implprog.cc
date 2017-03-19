@@ -69,10 +69,10 @@ ImplProg *		ImplProg::uniq_ = NULL;
 /*  CLASS    --------------------------------------------------------------- */
 
 /* ------------------------------------------------------------------------- */
-ImplProg::ImplProg	( void )
+ImplProg::ImplProg	()
 	: ImplInterf()
 {
-	Q_ASSERT( uniq_ == NULL );
+	Q_ASSERT (uniq_ == NULL);
 	uniq_ = this;
 	dot_process = NULL;
 	itm_img = NULL;
@@ -84,30 +84,30 @@ ImplProg::ImplProg	( void )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-ImplProg::~ImplProg	( void )
+ImplProg::~ImplProg	()
 {
 
-	if ( QFile::exists( cache_tmp_src_ ) )
+	if (QFile::exists( cache_tmp_src_ ))
 	{
-		QFile::remove( cache_tmp_src_ );
+		QFile::remove (cache_tmp_src_);
 	}
-	if ( QFile::exists( cache_tmp_dest_) )
+	if (QFile::exists( cache_tmp_dest_))
 	{
-		QFile::remove( cache_tmp_dest_ );
+		QFile::remove (cache_tmp_dest_);
 	}
 
 	s_.save();
 
-	Q_ASSERT( uniq_ == this );
+	Q_ASSERT (uniq_ == this);
 	uniq_ = NULL;
 
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void				ImplProg::stopDotProcess	( void )
+void				ImplProg::stopDotProcess	()
 {
-	if ( dot_process != NULL )
+	if (dot_process != NULL)
 	{
 		dot_process->terminate();
 		dot_process->waitForFinished();
@@ -118,10 +118,10 @@ void				ImplProg::stopDotProcess	( void )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void				ImplProg::startDotProcess	( void )
+void				ImplProg::startDotProcess	()
 {
 
-	dot_process = new QProcess( qApp );
+	dot_process = new QProcess (qApp);
 	connect( dot_process,SIGNAL(finished(int,QProcess::ExitStatus)),
 			 this, SLOT(proc_finished(int,QProcess::ExitStatus))
 			 );
@@ -138,7 +138,7 @@ void				ImplProg::startDotProcess	( void )
 			 this, SLOT(proc_readyOutput())
 			 );
 
-	dot_process->start( "\"" + s_.s_process_ + "\" " + cache_s_arg_ );
+	dot_process->start ("\"" + s_.s_process_ + "\" " + cache_s_arg_);
 
 }
 /* ========================================================================= */
@@ -146,10 +146,10 @@ void				ImplProg::startDotProcess	( void )
 /* ------------------------------------------------------------------------- */
 void				ImplProg::inst_finished(int exitCode, QProcess::ExitStatus exitStatus)
 {
-	Q_UNUSED( exitCode );
-	Q_UNUSED( exitStatus );
+	Q_UNUSED (exitCode);
+	Q_UNUSED (exitStatus);
 
-	QProcess * proc = static_cast<QProcess*>( sender() );
+	QProcess * proc = static_cast<QProcess*> (sender());
 	proc->deleteLater();
 }
 /* ========================================================================= */
@@ -157,20 +157,20 @@ void				ImplProg::inst_finished(int exitCode, QProcess::ExitStatus exitStatus)
 /* ------------------------------------------------------------------------- */
 void				ImplProg::proc_finished(int exitCode, QProcess::ExitStatus exitStatus)
 {
-	Q_UNUSED( exitCode );
-	Q_UNUSED( exitStatus );
+	Q_UNUSED (exitCode);
+	Q_UNUSED (exitStatus);
 	UserMsg	um;
 
-	if ( dot_process != NULL )
+	if (dot_process != NULL)
 	{
 		dot_process->deleteLater();
 		dot_process = NULL;
 	}
 
-	if ( itm_img != NULL )
+	if (itm_img != NULL)
 	{
-		Q_ASSERT( &img_scene == itm_img->scene() );
-		img_scene.removeItem( itm_img );
+		Q_ASSERT (&img_scene == itm_img->scene());
+		img_scene.removeItem (itm_img);
 		delete itm_img;
 		itm_img = NULL;
 	}
@@ -181,7 +181,7 @@ void				ImplProg::proc_finished(int exitCode, QProcess::ExitStatus exitStatus)
 				);
     img_scene.addItem (itm_img);
 
-	if ( s_.b_log_start_end_ )
+	if (s_.b_log_start_end_)
 	{
 		um.add( UserMsg::MSG_INFO,	QObject::tr(
 					"Process ended." )
@@ -195,7 +195,7 @@ void				ImplProg::proc_finished(int exitCode, QProcess::ExitStatus exitStatus)
 /* ------------------------------------------------------------------------- */
 void				ImplProg::proc_started ()
 {
-	if ( s_.b_log_start_end_ )
+	if (s_.b_log_start_end_)
 	{
 		UserMsg	um;
 		um.add( UserMsg::MSG_INFO,	QObject::tr(
@@ -209,9 +209,9 @@ void				ImplProg::proc_started ()
 /* ------------------------------------------------------------------------- */
 void				ImplProg::proc_readyError ()
 {
-	QProcess * proc = static_cast<QProcess*>( sender() );
+	QProcess * proc = static_cast<QProcess*> (sender());
 
-	if ( proc != NULL )
+	if (proc != NULL)
 	{
 		UserMsg	um;
 		um.add( UserMsg::MSG_ERROR,	QObject::tr(
@@ -225,9 +225,9 @@ void				ImplProg::proc_readyError ()
 /* ------------------------------------------------------------------------- */
 void				ImplProg::proc_readyOutput ()
 {
-	QProcess * proc = static_cast<QProcess*>( sender() );
+	QProcess * proc = static_cast<QProcess*> (sender());
 
-	if ( dot_process != NULL )
+	if (dot_process != NULL)
 	{
 		UserMsg	um;
 		um.add( UserMsg::MSG_INFO,	QObject::tr(
@@ -241,46 +241,46 @@ void				ImplProg::proc_readyOutput ()
 /* ------------------------------------------------------------------------- */
 void				ImplProg::proc_error ( QProcess::ProcessError error )
 {
-	QProcess * proc = static_cast<QProcess*>( sender() );
+	QProcess * proc = static_cast<QProcess*> (sender());
 
 
 	QString s_err;
 	switch (error) {
-	case QProcess::FailedToStart:	s_err = tr( "The process failed to start. Either the invoked program is missing, or you may have insufficient permissions to invoke the program." ); break;
-	case QProcess::Crashed:			s_err = tr( "The process crashed some time after starting successfully." ); break;
-	case QProcess::Timedout:		s_err = tr( "The last waitFor...() function timed out. The state of QProcess is unchanged, and you can try calling waitFor...() again." ); break;
-	case QProcess::WriteError:		s_err = tr( "An error occurred when attempting to write to the process. For example, the process may not be running, or it may have closed its input channel." ); break;
-	case QProcess::ReadError:		s_err = tr( "An error occurred when attempting to read from the process. For example, the process may not be running." ); break;
-	case QProcess::UnknownError:	s_err = tr( "An unknown error occurred. This is the default return value of error()." ); break;
-    default:						s_err = QString( "%1 error" ).arg( DOTEDITOR_PROJECT_NAME );
+	case QProcess::FailedToStart:	s_err = tr ("The process failed to start. Either the invoked program is missing, or you may have insufficient permissions to invoke the program."); break;
+	case QProcess::Crashed:			s_err = tr ("The process crashed some time after starting successfully."); break;
+	case QProcess::Timedout:		s_err = tr ("The last waitFor...() function timed out. The state of QProcess is unchanged, and you can try calling waitFor...() again."); break;
+	case QProcess::WriteError:		s_err = tr ("An error occurred when attempting to write to the process. For example, the process may not be running, or it may have closed its input channel."); break;
+	case QProcess::ReadError:		s_err = tr ("An error occurred when attempting to read from the process. For example, the process may not be running."); break;
+	case QProcess::UnknownError:	s_err = tr ("An unknown error occurred. This is the default return value of error()."); break;
+    default:						s_err = QString ("%1 error" ).arg( DOTEDITOR_PROJECT_NAME);
 	}
-	if ( proc != NULL )
+	if (proc != NULL)
 	{
 		proc->deleteLater();
-		if ( proc == dot_process )
+		if (proc == dot_process)
 			dot_process = NULL;
 	}
 
 	UserMsg	um;
-	um.add( UserMsg::MSG_ERROR,	s_err );
+	um.add (UserMsg::MSG_ERROR,	s_err);
 	um.show();
 
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-bool				ImplProg::perform			( void )
+bool				ImplProg::perform			()
 {
 
 	stopDotProcess();
 
 	QString s = GuiCtrl::editorText().trimmed();
-	if ( s.isEmpty() )
+	if (s.isEmpty())
 	{
 		/* remove image if one exists */
-		if ( itm_img != NULL )
+		if (itm_img != NULL)
 		{
-			img_scene.removeItem( itm_img );
+			img_scene.removeItem (itm_img);
 			delete itm_img;
 			itm_img = NULL;
 		}
@@ -289,7 +289,7 @@ bool				ImplProg::perform			( void )
 	}
 
 	/* save the content to a file */
-	if ( writeToTemp( s ) == false )
+	if (writeToTemp( s ) == false)
 		return false;
 
 	startDotProcess();
@@ -302,20 +302,20 @@ bool				ImplProg::perform			( void )
 void				ImplProg::ctxDisplay		(
 		const QPoint & loc, const QPoint & glob_loc )
 {
-	Q_UNUSED( loc );
+	Q_UNUSED (loc);
 	UserMsg		um;
 
 	QMenu	mnu;
-	QAction	ac_copy_img( tr( "Save image as..." ), &mnu );
+	QAction	ac_copy_img (tr( "Save image as..." ), &mnu);
 
-	if ( itm_img != NULL )
+	if (itm_img != NULL)
 	{
-		ac_copy_img.setIcon( QIcon( ":/resources/images/save.png" ) );
-		mnu.addAction( &ac_copy_img );
+		ac_copy_img.setIcon (QIcon( ":/resources/images/save.png" ));
+		mnu.addAction (&ac_copy_img);
 		connect( &ac_copy_img, SIGNAL( triggered() ),
-				 this, SLOT( saveImageAs() ) );
+				 this, SLOT (saveImageAs() ));
 
-		mnu.exec( glob_loc );
+		mnu.exec (glob_loc);
 	}
 	else
 	{
@@ -329,22 +329,22 @@ void				ImplProg::ctxDisplay		(
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-QAction *			ImplProg::action					( void )
+QAction *			ImplProg::action					()
 {
 	return Gui::MW::unique()->predefAct_Prog();
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void				ImplProg::saveImageAs				( void )
+void				ImplProg::saveImageAs				()
 {
 	UserMsg		um;
-	if ( itm_img != NULL )
+	if (itm_img != NULL)
 	{
-		QString fileName = QFileDialog::getSaveFileName( GuiCtrl::mainGui() );
+		QString fileName = QFileDialog::getSaveFileName (GuiCtrl::mainGui());
 		if (!fileName.isEmpty())
 		{
-			if ( itm_img->pixmap().save( fileName ) == false )
+			if (itm_img->pixmap().save( fileName ) == false)
 			{
 				um.add( UserMsg::MSG_ERROR,	QObject::tr(
 							"ERROR!!! The image could not be saved as \n%1" )
@@ -366,24 +366,24 @@ void				ImplProg::saveImageAs				( void )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void				ImplProg::applySettings		( void )
+void				ImplProg::applySettings		()
 {
 	QFile		f;
 	UserMsg		um;
 
 	/* remove previously used temporary files */
-	if ( cache_tmp_dest_.isEmpty() == false )
+	if (cache_tmp_dest_.isEmpty() == false)
 	{
-		f.setFileName( cache_tmp_dest_ );
-		if ( f.exists() )
+		f.setFileName (cache_tmp_dest_);
+		if (f.exists())
 		{
 			f.remove();
 		}
 	}
-	if ( cache_tmp_src_.isEmpty() == false )
+	if (cache_tmp_src_.isEmpty() == false)
 	{
-		f.setFileName( cache_tmp_src_ );
-		if ( f.exists() )
+		f.setFileName (cache_tmp_src_);
+		if (f.exists())
 		{
 			f.remove();
 		}
@@ -401,11 +401,11 @@ void				ImplProg::applySettings		( void )
 
 	cache_tmp_dest_ = s_.tmp_dest_;
 	cache_tmp_src_ = s_.tmp_src_;
-	cache_tmp_dest_.replace( "$TEMP", s_tmp );
-	cache_tmp_src_.replace( "$TEMP", s_tmp );
+	cache_tmp_dest_.replace ("$TEMP", s_tmp);
+	cache_tmp_src_.replace ("$TEMP", s_tmp);
 
-	QTemporaryFile tf_s( cache_tmp_src_ );
-	if ( tf_s.open() == false )
+	QTemporaryFile tf_s (cache_tmp_src_);
+	if (tf_s.open() == false)
 	{
 		um.add( UserMsg::MSG_ERROR,	QObject::tr(
 					"The input file %1 is unusable!" )
@@ -419,8 +419,8 @@ void				ImplProg::applySettings		( void )
 		tf_s.close();
 	}
 
-	QTemporaryFile tf_d( cache_tmp_dest_ );
-	if ( tf_d.open( ) == false )
+	QTemporaryFile tf_d (cache_tmp_dest_);
+	if (tf_d.open( ) == false)
 	{
 		um.add( UserMsg::MSG_ERROR,	QObject::tr(
 					"The destination file %1 is unusable!" )
@@ -447,8 +447,8 @@ void				ImplProg::applySettings		( void )
 
 	/* program and arguments */
 	cache_s_arg_ = s_.s_arg_;
-	cache_s_arg_.replace( "$OUT", cache_tmp_dest_ );
-	cache_s_arg_.replace( "$IN", cache_tmp_src_ );
+	cache_s_arg_.replace ("$OUT", cache_tmp_dest_);
+	cache_s_arg_.replace ("$IN", cache_tmp_src_);
 
 	um.add( UserMsg::MSG_INFO,
 			tr( "Generator program: " ) +
@@ -469,8 +469,8 @@ bool				ImplProg::writeToTemp			(
 {
 	UserMsg	um;
 
-	QFile * f = new QFile( cache_tmp_src_ );
-	if ( f->open( QIODevice::WriteOnly | QIODevice::Text ) == false )
+	QFile * f = new QFile (cache_tmp_src_);
+	if (f->open( QIODevice::WriteOnly | QIODevice::Text ) == false)
 	{
 		delete f;
 		um.add( UserMsg::MSG_INFO,
@@ -481,7 +481,7 @@ bool				ImplProg::writeToTemp			(
 		um.show();
 		return false;
 	}
-	QTextStream tx( f );
+	QTextStream tx (f);
 	tx << src_tx;
 	f->flush();
 	f->close();
@@ -492,19 +492,19 @@ bool				ImplProg::writeToTemp			(
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void				ImplProg::Stg::save				( void )
+void				ImplProg::Stg::save				()
 {
 	QSettings stgs;
-	stgs.setValue( "ImplProg/tmp_src", tmp_src_ );
-	stgs.setValue( "ImplProg/tmp_dest", tmp_dest_ );
-	stgs.setValue( "ImplProg/process_args", s_arg_ );
-	stgs.setValue( "ImplProg/process", s_process_ );
-	stgs.setValue( "ImplProg/log_start_end", b_log_start_end_ );
+	stgs.setValue ("ImplProg/tmp_src", tmp_src_);
+	stgs.setValue ("ImplProg/tmp_dest", tmp_dest_);
+	stgs.setValue ("ImplProg/process_args", s_arg_);
+	stgs.setValue ("ImplProg/process", s_process_);
+	stgs.setValue ("ImplProg/log_start_end", b_log_start_end_);
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void				ImplProg::Stg::load				( void )
+void				ImplProg::Stg::load				()
 {
 	QSettings stgs;
 	tmp_src_ = stgs.value("ImplProg/tmp_src",
@@ -527,9 +527,9 @@ void				ImplProg::Stg::load				( void )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-ImplProg::Stg		ImplProg::settings				( void )
+ImplProg::Stg		ImplProg::settings				()
 {
-	if ( uniq_ == NULL )
+	if (uniq_ == NULL)
 	{
 		Stg	s_ret;
 		s_ret.load();
@@ -543,9 +543,9 @@ ImplProg::Stg		ImplProg::settings				( void )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void				ImplProg::setSettings			( ImplProg::Stg & stg )
+void				ImplProg::setSettings		 (ImplProg::Stg & stg)
 {
-	if ( uniq_ == NULL )
+	if (uniq_ == NULL)
 	{
 		stg.save();
 	}

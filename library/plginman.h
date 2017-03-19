@@ -105,13 +105,13 @@ private:
 	/**
 	*	@brief	constructor;
 	*/
-	PlgInMan			( void )			{}
+	PlgInMan			()			{}
 
 
 	/**
 	*	@brief	destructor;
 	*/
-	~PlgInMan			( void )			{}
+	~PlgInMan			()			{}
 
 
 public:
@@ -123,7 +123,7 @@ public:
 	*	Will see if there are some plug-ins that should be loaded at at
 	*	start-up and, if so, will load them
 	*/
-	static void			init			( void );
+	static void			init			 ();
 
 
 	/**
@@ -133,33 +133,33 @@ public:
 	*	are free to delete themselves under this call. The plug-in pointer
 	*	will be removed from the list and will never be used again.
 	*/
-	static void			end						( void );
+	static void			end						 ();
 
 
 	/**
 	*	@brief	append a plug-in instance to the manager
 	*/
-	static void			append					( PlugIns::PlugIn * plg_in )
-	{ uniq_->plgin_list_.append( plg_in ); }
+	static void			append				 (PlugIns::PlugIn * plg_in)
+	{ uniq_->plgin_list_.append (plg_in); }
 
 
 	/**
 	*	@brief	remove a plug-in instance from the manager
 	*/
-	static void			remove					( PlugIns::PlugIn * plg_in )
-	{ uniq_->plgin_list_.removeOne( plg_in ); }
+	static void			remove				 (PlugIns::PlugIn * plg_in)
+	{ uniq_->plgin_list_.removeOne (plg_in); }
 
 
 	/**
 	*	@brief	get the plug-in at index i
 	*/
-	static PlugIns::PlugIn*		plugin			( int i );
+	static PlugIns::PlugIn*		plugin			 (int i);
 
 
 	/**
 	*	@brief	get the number of plug-ins that we know about
 	*/
-	static int			count					( void )
+	static int			count					()
 	{ return uniq_->plgin_list_.count(); }
 
 
@@ -219,7 +219,7 @@ public:
 	*
 	*	@see	syncListPlugIns
 	*/
-	static	QList<PlgInInfo>	listPlugIns	( QString & s_plg_path );
+	static	QList<PlgInInfo>	listPlugIns	 (QString & s_plg_path);
 
 
 	/**
@@ -241,7 +241,7 @@ private:
 	/**
 	*	@brief	get the start-up suite list
 	*/
-	static QStringList			startUpSuite		( void );
+	static QStringList			startUpSuite		 ();
 
 
 	/**

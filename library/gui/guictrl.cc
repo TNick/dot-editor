@@ -53,63 +53,63 @@ using namespace Gui;
 /*  CLASS    --------------------------------------------------------------- */
 
 /* ------------------------------------------------------------------------- */
-QWidget *		GuiCtrl::mainGui				( void )
+QWidget *		GuiCtrl::mainGui				()
 {
 	return Gui::MW::unique();
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-QString 		GuiCtrl::editorText		( void )
+QString 		GuiCtrl::editorText		()
 {
 	Gui::MW * mw = Gui::MW::unique();
-	if ( mw == NULL )
+	if (mw == NULL)
 		return QString();
 	return mw->editorText();
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-QGraphicsView *	GuiCtrl::graphicWidget	( void )
+QGraphicsView *	GuiCtrl::graphicWidget	()
 {
 	Gui::MW * mw = Gui::MW::unique();
-	if ( mw == NULL )
+	if (mw == NULL)
 		return NULL;
 	return mw->graphicWidget();
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void			GuiCtrl::setImplem		( ImplInterf * new_impl )
+void			GuiCtrl::setImplem	 (ImplInterf * new_impl)
 {
 	Gui::MW * mw = Gui::MW::unique();
-	if ( mw == NULL )
+	if (mw == NULL)
 		return;
-	mw->setImplem( new_impl );
+	mw->setImplem (new_impl);
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-ImplInterf *	GuiCtrl::implem			( void )
+ImplInterf *	GuiCtrl::implem			()
 {
 	Gui::MW * mw = Gui::MW::unique();
-	if ( mw == NULL )
+	if (mw == NULL)
 		return NULL;
 	return mw->implem();
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-QDockWidget *	GuiCtrl::addDock		( const QString & s_name )
+QDockWidget *	GuiCtrl::addDock	 (const QString & s_name)
 {
 	Gui::MW * mw = Gui::MW::unique();
-	if ( mw == NULL )
+	if (mw == NULL)
 		return NULL;
 	QDockWidget * dk;
-	dk = new QDockWidget( s_name, mw );
-	dk->setObjectName( s_name );
-	mw->addDockWidget( Qt::RightDockWidgetArea, dk );
-	mw->addMenuViewAction( dk->toggleViewAction() );
+	dk = new QDockWidget (s_name, mw);
+	dk->setObjectName (s_name);
+	mw->addDockWidget (Qt::RightDockWidgetArea, dk);
+	mw->addMenuViewAction (dk->toggleViewAction());
 
 	return dk;
 }

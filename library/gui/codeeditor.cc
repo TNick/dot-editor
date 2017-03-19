@@ -101,11 +101,11 @@ CodeEditor::CodeEditor	( QWidget * parent ) :
 	connect(this, SIGNAL(cursorPositionChanged()),
 			this, SLOT(highlightCurrentLine()));
 
-	QFont fn = QFont( "Courier" );
-	fn.setFixedPitch( true );
-	fn.setStyleHint( QFont::Courier );
-	setFont( fn );
-    lineNumberArea->setFont( fn );
+	QFont fn = QFont ("Courier");
+	fn.setFixedPitch (true);
+	fn.setStyleHint (QFont::Courier);
+	setFont (fn);
+    lineNumberArea->setFont (fn);
 
 	updateLineNumberAreaWidth(0);
 	highlightCurrentLine();
@@ -114,14 +114,14 @@ CodeEditor::CodeEditor	( QWidget * parent ) :
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-CodeEditor::~CodeEditor	( void )
+CodeEditor::~CodeEditor	()
 {
 	/* stub */
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-int				CodeEditor::lineNumberAreaWidth		( void )
+int				CodeEditor::lineNumberAreaWidth		()
 {
 	int digits = 1;
 	int max = qMax(1, blockCount());
@@ -163,7 +163,7 @@ void			CodeEditor::updateLineNumberArea		(
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void			CodeEditor::resizeEvent					( QResizeEvent *e )
+void			CodeEditor::resizeEvent				 (QResizeEvent *e)
 {
 	QPlainTextEdit::resizeEvent(e);
 
@@ -178,9 +178,9 @@ void			CodeEditor::resizeEvent					( QResizeEvent *e )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void			CodeEditor::keyPressEvent				( QKeyEvent * e )
+void			CodeEditor::keyPressEvent			 (QKeyEvent * e)
 {
-	if ( ( e->key() == Qt::Key_Return ) || ( e->key() == Qt::Key_Enter ) )
+	if (( e->key() == Qt::Key_Return ) || ( e->key() == Qt::Key_Enter ))
 	{
 		/* ensure same indentation */
 		QTextCursor cursor      = textCursor();
@@ -191,7 +191,7 @@ void			CodeEditor::keyPressEvent				( QKeyEvent * e )
 		tx_end = cur_line_text.constEnd();
 		while ( tx_iter != tx_end )
 		{
-			if ( ( *tx_iter != ' ' ) && ( *tx_iter != '\t' ) )
+			if (( *tx_iter != ' ' ) && ( *tx_iter != '\t' ))
 			{
 				break;
 			}
@@ -201,42 +201,42 @@ void			CodeEditor::keyPressEvent				( QKeyEvent * e )
 					cur_line_text.constBegin(),
 					tx_iter - cur_line_text.constBegin()
 					);
-		cursor.insertText( "\n" + s_ins );
+		cursor.insertText ("\n" + s_ins);
 
 	}
 	else
 	{
-		QPlainTextEdit::keyPressEvent( e );
+		QPlainTextEdit::keyPressEvent (e);
 	}
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void			CodeEditor::wheelEvent	( QWheelEvent * event )
+void			CodeEditor::wheelEvent (QWheelEvent * event)
 {
 	int numDegrees = event->delta() / 8;
 	int numSteps = numDegrees / 15;  // see QWheelEvent documentation
 
 
-	if ( ( event->modifiers() & Qt::ControlModifier ) != 0 )
+	if (( event->modifiers() & Qt::ControlModifier ) != 0)
 	{
 		QFont	fnt = font();
-		fnt.setPointSize( fnt.pointSize() + numSteps );
-		setFont( fnt );
+		fnt.setPointSize (fnt.pointSize() + numSteps);
+		setFont (fnt);
 	}
 	else
 	{
-		QPlainTextEdit::wheelEvent( event );
+		QPlainTextEdit::wheelEvent (event);
 	}
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void			CodeEditor::highlightCurrentLine		( void )
+void			CodeEditor::highlightCurrentLine		()
 {
 	QList<QTextEdit::ExtraSelection> extraSelections;
 
-	if ( !isReadOnly() )
+	if (!isReadOnly())
 	{
 		QTextEdit::ExtraSelection selection;
 
@@ -254,10 +254,10 @@ void			CodeEditor::highlightCurrentLine		( void )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void			CodeEditor::lineNumberAreaPaintEvent	( QPaintEvent *event )
+void			CodeEditor::lineNumberAreaPaintEvent (QPaintEvent *event)
 {
-	QPainter painter( lineNumberArea );
-	painter.fillRect( event->rect(), QColor( 221, 234, 254 ) );
+	QPainter painter (lineNumberArea);
+	painter.fillRect (event->rect(), QColor( 221, 234, 254 ));
 
 	QTextBlock block = firstVisibleBlock();
 	int blockNumber = block.blockNumber();
@@ -268,7 +268,7 @@ void			CodeEditor::lineNumberAreaPaintEvent	( QPaintEvent *event )
 	{
 		if (block.isVisible() && bottom >= event->rect().top()) {
 			QString number = QString::number(blockNumber + 1);
-			painter.setPen( Qt::blue );
+			painter.setPen (Qt::blue);
             painter.drawText(0, top, lineNumberArea->width(), fontMetrics().height()*2,
 							 Qt::AlignRight, number);
 		}

@@ -71,14 +71,14 @@ public:
 	/**
 	*	@brief	constructor;
 	*/
-	ImplInterf				( void )
+	ImplInterf				()
 	{}
 
 
 	/**
 	*	@brief	destructor;
 	*/
-	virtual					~ImplInterf				( void )
+	virtual					~ImplInterf				()
 	{}
 
 
@@ -91,7 +91,7 @@ public:
 	/**
 	*	@brief	Implementation is required to do its thing
 	*/
-	virtual bool			perform					( void ) = 0;
+	virtual bool			perform					() = 0;
 
 
 	/**
@@ -106,13 +106,13 @@ public:
 	/**
 	*	@brief	the scene implemented by the implementation
 	*/
-	virtual QGraphicsScene*	scene					( void ) = 0;
+	virtual QGraphicsScene*	scene					() = 0;
 
 
 	/**
 	*	@brief	action that toogles this mode on
 	*/
-	virtual QAction*		action					( void ) = 0;
+	virtual QAction*		action					() = 0;
 
 
 	///@}

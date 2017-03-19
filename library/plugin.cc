@@ -58,35 +58,35 @@ using namespace PlugIns;
 /*  CLASS    --------------------------------------------------------------- */
 
 /* ------------------------------------------------------------------------- */
-PlugIn::PlugIn	( void )
+PlugIn::PlugIn	()
 {
 	/* append to the list of loaded plug-ins */
-	PlgInMan::append( this );
+	PlgInMan::append (this);
 
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-PlugIn::~PlugIn	( void )
+PlugIn::~PlugIn	()
 {
 	/* extract from the list of loaded plug-ins */
-	PlgInMan::remove( this );
+	PlgInMan::remove (this);
 
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-bool		PlugIn::initComplete	( UserMsg & um )
+bool		PlugIn::initComplete (UserMsg & um)
 {
-	Q_UNUSED( um );
+	Q_UNUSED (um);
 	return true;
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void		PlugIn::systemClosing	( UserMsg & um )
+void		PlugIn::systemClosing (UserMsg & um)
 {
-	Q_UNUSED( um );
+	Q_UNUSED (um);
 	delete this;
 }
 /* ========================================================================= */
@@ -95,8 +95,8 @@ void		PlugIn::systemClosing	( UserMsg & um )
 QToolBar *	PlugIn::createTb		(
 		Qt::ToolBarArea tb_a, const QString & s_name )
 {
-	QToolBar * tb =	new QToolBar( s_name );
-	Gui::MW::unique()->addToolBar( tb_a, tb );
+	QToolBar * tb =	new QToolBar (s_name);
+	Gui::MW::unique()->addToolBar (tb_a, tb);
 	return tb;
 }
 /* ========================================================================= */
@@ -105,8 +105,8 @@ QToolBar *	PlugIn::createTb		(
 void		PlugIn::connectTo_TxChanged	(
 		QObject *dest_obj, const char *dest_slt )
 {
-	Q_ASSERT( Gui::MW::unique() != NULL );
-	Gui::MW::unique()->editorTxChanged( dest_obj, dest_slt );
+	Q_ASSERT (Gui::MW::unique() != NULL);
+	Gui::MW::unique()->editorTxChanged (dest_obj, dest_slt);
 }
 /* ========================================================================= */
 

@@ -91,13 +91,13 @@ public:
 	/**
 	*	@brief	constructor;
 	*/
-	Syntax			( QTextDocument * parent );
+	Syntax			 (QTextDocument * parent);
 
 
 	/**
 	*	@brief	destructor;
 	*/
-	virtual				~Syntax		( void );
+	virtual				~Syntax		 ();
 
 
 protected:

@@ -291,22 +291,22 @@ public:
 	*	@brief	 routine that actually shows the message based on
 	*	current settings
 	*/
-	void			show				( void );
+	void			show				 ();
 
 	/**
 	*	@brief	 export the information it contains
 	*/
-	void			exportData			( MsgCacheEntry & outp );
+	void			exportData			 (MsgCacheEntry & outp);
 
 	/**
 	*	@brief	 create html representation of the data
 	*/
-	QString			toHtml				( void );
+	QString			toHtml				 ();
 
 	/**
 	*	@brief	 number of stored messages
 	*/
-	int				count				( void ) const
+	int				count				() const
 	{ return msg_.count(); }
 
 
@@ -319,7 +319,7 @@ private:
 	*	storage. If \b b_forced is true, curent setting are overwritten,
 	*	otherwise only empty ones are replaced
 	*/
-	static void			doDefaultFormat		( bool b_forced = true );
+	static void			doDefaultFormat		 (bool b_forced = true);
 
 
 public:
@@ -328,12 +328,12 @@ public:
 	/**
 	*	@brief	 initialises the error system
 	*/
-	static void			startUp				( void );
+	static void			startUp				 ();
 
 	/**
 	*	@brief	 discards the error system
 	*/
-	static void			finishUp			( void );
+	static void			finishUp			 ();
 
 	/**
 	*	@brief	 initialize the display type based on settings
@@ -341,41 +341,41 @@ public:
 	*	when the application starts the output is disabled; it is later
 	*	enabled by the front-end using this function
 	*/
-	static void			initialDisplay		( void );
+	static void			initialDisplay		 ();
 
 	/**
 	*	@brief	 starts the dead message logging system
 	*/
-	static void			initDeadLog			( void );
+	static void			initDeadLog			 ();
 
 	/**
 	*	@brief	 gets the string that coresponds to a message type
 	*/
-	static QString		tyName				( MsgType ty )
+	static QString		tyName			 (MsgType ty)
 	{ return d_->ty_names_[ty]; }
 
 	/**
 	*	@brief	 tells the output type
 	*/
-	static MsgOutType	outputType			( void )
+	static MsgOutType	outputType			()
 	{ return d_->out_ty_; }
 
 	/**
 	*	@brief	 changes the output type
 	*/
-	static void			setOutputType		( MsgOutType new_ty );
+	static void			setOutputType		 (MsgOutType new_ty);
 
 	/**
 	*	@brief	 presents cached messages to the user
 	*/
-	static void			flush				( void );
+	static void			flush				 ();
 
 	/**
 	*	@brief	 tell if a certain MsgType is visible or not
 	*/
-	static bool			isTypeVisible		( MsgType ty )
+	static bool			isTypeVisible	 (MsgType ty)
 	{
-		if ( (ty >= 0) && (ty < MSG_MAX_TY) )
+		if ((ty >= 0) && (ty < MSG_MAX_TY))
 			return ( d_->viz_lst_ & (1 << ty)) != 0;
 		return false;
 	}
@@ -383,42 +383,42 @@ public:
 	/**
 	*	@brief	 get visible types
 	*/
-	static inline MsgVisible typesVisible	( void )
+	static inline MsgVisible typesVisible	()
 	{ return  d_->viz_lst_;}
 
 	/**
 	*	@brief	 set if a certain MsgType is visible or not
 	*/
-	static void			setTypeVisible		( MsgType ty, bool b_viz );
+	static void			setTypeVisible		 (MsgType ty, bool b_viz);
 	/**
 	*	@brief	 set if a certain MsgType is visible or not
 	*/
-	static void			setTypeVisible		( MsgVisible ty );
+	static void			setTypeVisible		 (MsgVisible ty);
 
 	/**
 	*	@brief	 convert a MsgCacheList structure to html using \b html_format_
 	*/
-	static QString		cacheListToHtml		( const MsgCacheList & c_list );
+	static QString		cacheListToHtml		 (const MsgCacheList & c_list);
 
 	/**
 	*	@brief	 convert a MsgCacheEntry structure to html using \b html_format_
 	*/
-	static QString		cacheEntryToHtml	( const MsgCacheEntry & c_entry );
+	static QString		cacheEntryToHtml	 (const MsgCacheEntry & c_entry);
 
 	/**
 	*	@brief	 convert a MsgList structure to html using \b html_format_
 	*/
-	static QString		msgListToHtml		( const MsgList & m_list );
+	static QString		msgListToHtml		 (const MsgList & m_list);
 
 	/**
 	*	@brief	 convert a MsgEntry structure to html using \b html_format_
 	*/
-	static QString		msgEntryToHtml		( const MsgEntry & m_entry );
+	static QString		msgEntryToHtml		 (const MsgEntry & m_entry);
 
 	/**
 	*	@brief	 present information about an exception
 	*/
-	static void			fatalException		( void );
+	static void			fatalException		 ();
 
 
 	/*  FUNCTIONS    =========================================================== */

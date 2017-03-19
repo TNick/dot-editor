@@ -40,8 +40,8 @@ using namespace Gui;
 //
 /*  DEFINITIONS    --------------------------------------------------------- */
 
-extern void		GUI_showPopUpMessage	( UserMsg::MsgCacheList * p_msg );
-extern void		GUI_showPopUpMessage	( UserMsg * p_msg );
+extern void		GUI_showPopUpMessage	 (UserMsg::MsgCacheList * p_msg);
+extern void		GUI_showPopUpMessage	 (UserMsg * p_msg);
 
 /*  DEFINITIONS    ========================================================= */
 //
@@ -96,7 +96,7 @@ UserMsgGui::UserMsgGui					(QWidget *parent) :
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-UserMsgGui::~UserMsgGui					( void )
+UserMsgGui::~UserMsgGui					()
 {
 	Q_ASSERT(uniq_inst_ == this);
 	uniq_inst_ = NULL;
@@ -124,13 +124,13 @@ void					UserMsgGui::showMsg			(UserMsg * msg)
 {
 	if (!isShown())
 	{
-		new UserMsgGui( MW::unique() );
+		new UserMsgGui (MW::unique());
 	}
 
 	UserMsg::MsgCacheEntry new_e;
-	msg->exportData( new_e );
+	msg->exportData (new_e);
 
-	uniq_inst_->m_lst_.append( new_e );
+	uniq_inst_->m_lst_.append (new_e);
 	uniq_inst_->updateText();
 
 }
@@ -141,12 +141,12 @@ void					UserMsgGui::showMsg			(UserMsg::MsgCacheList * msg)
 {
 	if (!isShown())
 	{
-		new UserMsgGui( MW::unique() );
+		new UserMsgGui (MW::unique());
 	}
 
 	for (int i = 0; i < msg->count(); i++)
 	{
-		uniq_inst_->m_lst_.append( msg->at(i) );
+		uniq_inst_->m_lst_.append (msg->at(i));
 	}
 
 	uniq_inst_->updateText();
@@ -155,11 +155,11 @@ void					UserMsgGui::showMsg			(UserMsg::MsgCacheList * msg)
 
 
 /* ------------------------------------------------------------------------- */
-void					UserMsgGui::updateText		( void )
+void					UserMsgGui::updateText		()
 {
 	uniq_inst_->ui.txArea->clear();
-	QString	s_out = UserMsg::cacheListToHtml( m_lst_ );
-	if ( s_out.isEmpty() )
+	QString	s_out = UserMsg::cacheListToHtml (m_lst_);
+	if (s_out.isEmpty())
 	{
 		closeMe();
 	}
@@ -173,7 +173,7 @@ void					UserMsgGui::updateText		( void )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void					UserMsgGui::closeMe				( void )
+void					UserMsgGui::closeMe				()
 {
 	close();
 	deleteLater();
@@ -181,14 +181,14 @@ void					UserMsgGui::closeMe				( void )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void					UserMsgGui::help				( void )
+void					UserMsgGui::help				()
 {
 	/// @todo implement help
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void					UserMsgGui::showSettings		( void )
+void					UserMsgGui::showSettings		()
 {
 	/// @todo open settings at proper tab
 
@@ -196,7 +196,7 @@ void					UserMsgGui::showSettings		( void )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void					UserMsgGui::chgWhatIsShown		( void )
+void					UserMsgGui::chgWhatIsShown		()
 {
 	int	flg = 0;
 
@@ -219,14 +219,14 @@ void					UserMsgGui::chgWhatIsShown		( void )
 				| UserMsg::MVIZ_DBG_INFO;
 	}
 
-	UserMsg::setTypeVisible( static_cast<UserMsg::MsgVisible>( flg ) );
+	UserMsg::setTypeVisible (static_cast<UserMsg::MsgVisible>( flg ));
 
 	updateText();
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void					UserMsgGui::maskChanged		( void )
+void					UserMsgGui::maskChanged		()
 {
 	if (uniq_inst_ != NULL)
 	{
@@ -245,16 +245,16 @@ void					UserMsgGui::maskChanged		( void )
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void		GUI_showPopUpMessage	( UserMsg::MsgCacheList * p_msg )
+void		GUI_showPopUpMessage (UserMsg::MsgCacheList * p_msg)
 {
-	UserMsgGui::showMsg( p_msg );
+	UserMsgGui::showMsg (p_msg);
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void		GUI_showPopUpMessage	( UserMsg * p_msg )
+void		GUI_showPopUpMessage (UserMsg * p_msg)
 {
-	UserMsgGui::showMsg( p_msg );
+	UserMsgGui::showMsg (p_msg);
 }
 /* ========================================================================= */
 

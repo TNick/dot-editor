@@ -101,13 +101,13 @@ public:
 	/**
 	*	@brief	constructor;
 	*/
-	PlugIn				( void );
+	PlugIn				 ();
 
 
 	/**
 	*	@brief	destructor;
 	*/
-	virtual				~PlugIn			( void );
+	virtual				~PlugIn			 ();
 
 
 	/**
@@ -117,7 +117,7 @@ public:
 	*	Notably, the file name is set inside the instance when
 	*	before the call is performed.
 	*/
-	virtual bool		initComplete	( UserMsg & um );
+	virtual bool		initComplete	 (UserMsg & um);
 
 
 	/**
@@ -133,20 +133,20 @@ public:
 	*	If, however, the instance is not allocated using new(), then this
 	*	method should be implemented.
 	*/
-	virtual void		systemClosing	( UserMsg & um );
+	virtual void		systemClosing	 (UserMsg & um);
 
 
 	/**
 	*	@brief	get name
 	*/
-	inline QString		name			( void ) const
+	inline QString		name			() const
 	{ return name_; }
 
 
 	/**
 	*	@brief	get the file that produced this plug-in
 	*/
-	inline QString		file			( void ) const
+	inline QString		file			() const
 	{ return file_; }
 
 
@@ -157,14 +157,14 @@ protected:
 	/**
 	*	@brief	set name
 	*/
-	inline void			setName			( const QString & new_val )
+	inline void			setName		 (const QString & new_val)
 	{ name_ = new_val; }
 
 
 	/**
 	*	@brief	set the file that produced this plug-in
 	*/
-	inline void			setFile			( const QString & new_val )
+	inline void			setFile		 (const QString & new_val)
 	{ file_ = new_val; }
 
 

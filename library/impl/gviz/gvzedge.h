@@ -103,40 +103,40 @@ public:
 	/**
 	*	@brief	destructor;
 	*/
-	~GVzEdge				( void );
+	~GVzEdge				 ();
 
 
 	/**
 	*	@brief	re-examines the content and caches some values
 	*/
-	void					updateCachedData			( void );
+	void					updateCachedData			 ();
 
 
 	/**
 	*	@brief	source node (from where this leaves)
 	*/
-	inline GVzNode *		source		( void )
+	inline GVzNode *		source		()
 	{ return src_; }
 
 
 	/**
 	*	@brief	destination node (where this ends)
 	*/
-	inline GVzNode *		destination	( void )
+	inline GVzNode *		destination	()
 	{ return dst_; }
 
 
 	/**
 	*	@brief	set destination node (where this ends)
 	*/
-	inline void				setDestination	( GVzNode * new_v )
+	inline void				setDestination (GVzNode * new_v)
 	{ dst_ = new_v; }
 
 
 	/**
 	*	@brief	tell the label to outter world
 	*/
-	QString					label						( void ) const;
+	QString					label						() const;
 
 
 	/*  FUNCTIONS    ======================================================= */

@@ -46,19 +46,19 @@ AboutDlg::AboutDlg					( QWidget *parent ) :
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-AboutDlg::~AboutDlg					( void )
+AboutDlg::~AboutDlg					()
 {
 	/* stub */
 }
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void					AboutDlg::changeEvent			( QEvent *e )
+void					AboutDlg::changeEvent		 (QEvent *e)
 {
-	QDialog::changeEvent( e );
+	QDialog::changeEvent (e);
 	switch ( e->type() ) {
 	case QEvent::LanguageChange:	{
-		ui.retranslateUi( this );
+		ui.retranslateUi (this);
 		break;}
 	default:						{
 		break;}
